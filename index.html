@@ -267,131 +267,242 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
         <div class="pilar-visual">
           <!-- SUBSTITUA pelo print: Dashboard Visão Geral (KPIs neon + gráficos) -->
           <!-- <img src="prints/visao-geral.png" alt="Dashboard Cyber Records Hub"> -->
-<div id="vgd" style="width:100%;height:100%;background:#08080a;font-family:'Courier New',monospace;display:flex;flex-direction:column;overflow:hidden;user-select:none;">
-  <div style="background:#0d0d0b;border-bottom:1px solid rgba(141,198,63,0.25);padding:3px 8px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
-    <span style="font-size:7px;letter-spacing:0.12em;color:#8DC63F;">● OPERAÇÃO LIVE &nbsp;·&nbsp; Saúde de TI: 95,4% &nbsp;·&nbsp; Incidentes: 23 &nbsp;·&nbsp; SLA Global: 98,4% &nbsp;·&nbsp; Score de Risco: 1,9</span>
-    <span style="font-size:7px;color:#555;" id="vgd-clock"></span>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+#vgd{--lime:#b8ff1f;--cyan:#2de2ff;--violet:#9d6bff;--amber:#ffb01f;--red:#ff3d5e;--void:#04060a;--panel:#0a1018;--edge:#15202b;--ice:#dfeee4;--dim:#73857b;}
+#vgd .vp{position:relative;background:linear-gradient(160deg,rgba(13,20,28,.92),rgba(7,11,17,.96));border:1px solid rgba(184,255,31,.1);}
+#vgd .vp::before{content:"";position:absolute;inset:-1px;pointer-events:none;background:linear-gradient(#b8ff1f,#b8ff1f) left top/12px 1.5px,linear-gradient(#b8ff1f,#b8ff1f) left top/1.5px 12px,linear-gradient(#b8ff1f,#b8ff1f) right top/12px 1.5px,linear-gradient(#b8ff1f,#b8ff1f) right top/1.5px 12px,linear-gradient(#b8ff1f,#b8ff1f) left bottom/12px 1.5px,linear-gradient(#b8ff1f,#b8ff1f) left bottom/1.5px 12px,linear-gradient(#b8ff1f,#b8ff1f) right bottom/12px 1.5px,linear-gradient(#b8ff1f,#b8ff1f) right bottom/1.5px 12px;background-repeat:no-repeat;opacity:.55;}
+#vgd .vp-red::before{background:linear-gradient(#ff3d5e,#ff3d5e) left top/12px 1.5px,linear-gradient(#ff3d5e,#ff3d5e) left top/1.5px 12px,linear-gradient(#ff3d5e,#ff3d5e) right top/12px 1.5px,linear-gradient(#ff3d5e,#ff3d5e) right top/1.5px 12px,linear-gradient(#ff3d5e,#ff3d5e) left bottom/12px 1.5px,linear-gradient(#ff3d5e,#ff3d5e) left bottom/1.5px 12px,linear-gradient(#ff3d5e,#ff3d5e) right bottom/12px 1.5px,linear-gradient(#ff3d5e,#ff3d5e) right bottom/1.5px 12px;background-repeat:no-repeat;opacity:.6;}
+#vgd .vp-amb::before{background:linear-gradient(#ffb01f,#ffb01f) left top/12px 1.5px,linear-gradient(#ffb01f,#ffb01f) left top/1.5px 12px,linear-gradient(#ffb01f,#ffb01f) right top/12px 1.5px,linear-gradient(#ffb01f,#ffb01f) right top/1.5px 12px,linear-gradient(#ffb01f,#ffb01f) left bottom/12px 1.5px,linear-gradient(#ffb01f,#ffb01f) left bottom/1.5px 12px,linear-gradient(#ffb01f,#ffb01f) right bottom/12px 1.5px,linear-gradient(#ffb01f,#ffb01f) right bottom/1.5px 12px;background-repeat:no-repeat;opacity:.55;}
+#vgd .scan{position:relative;overflow:hidden;}
+#vgd .scan::after{content:"";position:absolute;top:0;bottom:0;width:38%;background:linear-gradient(90deg,transparent,rgba(184,255,31,.06),transparent);animation:vgscan 4.5s linear infinite;pointer-events:none;}
+@keyframes vgscan{0%{transform:translateX(-160%)}100%{transform:translateX(420%)}}
+#vgd .pdot{width:6px;height:6px;border-radius:50%;display:inline-block;animation:vgpulse 2.2s ease-in-out infinite;}
+#vgd .pdot-ok{background:#b8ff1f;color:#b8ff1f;box-shadow:0 0 6px #b8ff1f;}
+#vgd .pdot-warn{background:#ffb01f;color:#ffb01f;box-shadow:0 0 6px #ffb01f;}
+#vgd .pdot-crit{background:#ff3d5e;color:#ff3d5e;box-shadow:0 0 6px #ff3d5e;animation-duration:1s;}
+@keyframes vgpulse{0%,100%{opacity:1}50%{opacity:.3}}
+#vgd .plive{width:5px;height:5px;border-radius:50%;background:#b8ff1f;box-shadow:0 0 8px #b8ff1f;display:inline-block;animation:vgpulse 1.4s ease-in-out infinite;}
+@keyframes vgpulsenode{0%,100%{r:3.5;opacity:1}50%{r:5.5;opacity:.4}}
+#vgd .livedot{animation:vgpulsenode 1.4s ease-in-out infinite;}
+#vgd .tab-btn{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:.1em;text-transform:uppercase;padding:5px 0;cursor:pointer;border-bottom:1.5px solid transparent;transition:all .2s;white-space:nowrap;background:none;border-left:none;border-right:none;border-top:none;}
+#vgd .tab-btn.active{color:#b8ff1f;border-bottom-color:#b8ff1f;}
+#vgd .tab-btn:not(.active){color:#73857b;}
+</style>
+
+<div id="vgd" style="width:100%;height:100%;background:#04060a;font-family:'Space Mono',monospace;display:flex;flex-direction:column;overflow:hidden;">
+
+  <!-- HEADER BAR -->
+  <div style="background:#070b11;border-bottom:1px solid #15202b;padding:2px 8px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;gap:6px;overflow:hidden;">
+    <div style="display:flex;align-items:center;gap:5px;overflow:hidden;flex:1;">
+      <span class="pdot pdot-ok"></span>
+      <span style="font-size:6.5px;letter-spacing:.14em;color:#b8ff1f;white-space:nowrap;">OPERAÇÃO LIVE</span>
+      <span style="font-size:6px;color:#15202b;">|</span>
+      <div style="overflow:hidden;flex:1;">
+        <span style="font-size:6px;color:#73857b;white-space:nowrap;">Saúde de TI: <span style="color:#b8ff1f;">93,5%</span> &nbsp;◇&nbsp; Incidentes: <span style="color:#dfeee4;">29</span> &nbsp;◇&nbsp; SLA: <span style="color:#b8ff1f;">97%</span> &nbsp;◇&nbsp; Score de Risco: <span style="color:#dfeee4;">1,8</span></span>
+      </div>
+    </div>
+    <span style="font-family:'Orbitron',sans-serif;font-size:8px;color:#dfeee4;flex-shrink:0;" id="vgd-clock"></span>
   </div>
-  <div style="padding:5px 8px 2px;flex-shrink:0;">
-    <div style="font-size:6px;letter-spacing:0.2em;color:#555;text-transform:uppercase;">MÓDULO // VISÃO-GERAL</div>
-    <div style="font-size:13px;font-weight:700;color:#fff;letter-spacing:0.08em;line-height:1.1;">VISÃO GERAL</div>
-    <div style="font-size:7px;color:#555;">Resumo executivo consolidado de todos os setores de TI</div>
+
+  <!-- MODULE LABEL + TITLE -->
+  <div style="padding:5px 10px 2px;flex-shrink:0;">
+    <div style="font-size:6px;letter-spacing:.2em;color:#73857b;text-transform:uppercase;">MÓDULO // VISAO-GERAL</div>
+    <div style="font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;color:#dfeee4;letter-spacing:.08em;text-transform:uppercase;line-height:1.1;">VISÃO GERAL</div>
+    <div style="font-size:7px;color:#73857b;margin-top:1px;display:flex;justify-content:space-between;">
+      <span>Resumo executivo consolidado de todos os setores de TI</span>
+      <span style="display:flex;align-items:center;gap:3px;"><span class="plive"></span><span style="color:#73857b;">TELEMETRIA LIVE</span> &nbsp;<span id="vgd-tele" style="color:#73857b;"></span></span>
+    </div>
   </div>
-  <div style="display:flex;border-bottom:1px solid rgba(255,255,255,0.06);padding:0 8px;gap:10px;flex-shrink:0;" id="vgd-tabs">
-    <span onclick="vgdTab(0)" style="font-size:7px;letter-spacing:0.08em;color:#8DC63F;padding:4px 0;border-bottom:1px solid #8DC63F;cursor:pointer;white-space:nowrap;">RESUMO EXECUTIVO</span>
-    <span onclick="vgdTab(1)" style="font-size:7px;letter-spacing:0.08em;color:#444;padding:4px 0;border-bottom:1px solid transparent;cursor:pointer;white-space:nowrap;">INDICADORES ESTRATÉGICOS</span>
-    <span onclick="vgdTab(2)" style="font-size:7px;letter-spacing:0.08em;color:#444;padding:4px 0;border-bottom:1px solid transparent;cursor:pointer;white-space:nowrap;">ALERTAS CRÍTICOS</span>
+
+  <!-- TABS -->
+  <div style="display:flex;border-bottom:1px solid #15202b;padding:0 10px;gap:12px;flex-shrink:0;" id="vgd-tabs">
+    <button class="tab-btn active" onclick="vgdTab(0)">RESUMO EXECUTIVO</button>
+    <button class="tab-btn" onclick="vgdTab(1)">INDICADORES ESTRATÉGICOS</button>
+    <button class="tab-btn" onclick="vgdTab(2)">ALERTAS CRÍTICOS</button>
   </div>
 
   <!-- TAB 0: RESUMO EXECUTIVO -->
   <div id="vgd-t0" style="flex:1;padding:5px 8px;display:flex;flex-direction:column;gap:4px;overflow:hidden;min-height:0;">
+
+    <!-- KPI CARDS -->
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;flex-shrink:0;">
-      <div style="background:#111;border:1px solid rgba(141,198,63,0.2);border-radius:2px;padding:5px;">
-        <div style="font-size:6px;color:#555;text-transform:uppercase;letter-spacing:0.05em;">Saúde Geral TI</div>
-        <div style="font-size:1.3rem;color:#8DC63F;font-weight:700;line-height:1.1;">95,4<span style="font-size:0.55rem;">%</span></div>
-        <div style="font-size:6px;color:#8DC63F;">▲ 3.4% <span style="color:#333;">NOMINAL</span></div>
-      </div>
-      <div style="background:#111;border:1px solid rgba(141,198,63,0.2);border-radius:2px;padding:5px;">
-        <div style="font-size:6px;color:#555;text-transform:uppercase;letter-spacing:0.05em;">Incidentes Abertos</div>
-        <div style="font-size:1.3rem;color:#fff;font-weight:700;line-height:1.1;">23</div>
-        <div style="font-size:6px;color:#e74c3c;">▼ 26.8% <span style="color:#333;">NOMINAL</span></div>
-      </div>
-      <div style="background:#111;border:1px solid rgba(141,198,63,0.2);border-radius:2px;padding:5px;">
-        <div style="font-size:6px;color:#555;text-transform:uppercase;letter-spacing:0.05em;">SLA Global</div>
-        <div style="font-size:1.3rem;color:#8DC63F;font-weight:700;line-height:1.1;">98,4<span style="font-size:0.55rem;">%</span></div>
-        <div style="font-size:6px;color:#e74c3c;">▼ 0.4% <span style="color:#333;">NOMINAL</span></div>
-      </div>
-      <div style="background:#111;border:1px solid rgba(141,198,63,0.2);border-radius:2px;padding:5px;">
-        <div style="font-size:6px;color:#555;text-transform:uppercase;letter-spacing:0.05em;">Score de Risco</div>
-        <div style="font-size:1.3rem;color:#fff;font-weight:700;line-height:1.1;">1,9</div>
-        <div style="font-size:6px;color:#8DC63F;">▼ 27.7% <span style="color:#333;">NOMINAL</span></div>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:3fr 2fr;gap:4px;flex:1;min-height:0;">
-      <!-- Line chart -->
-      <div style="background:#111;border:1px solid rgba(141,198,63,0.12);border-radius:2px;padding:5px;display:flex;flex-direction:column;min-height:0;">
-        <div style="font-size:7px;color:#555;margin-bottom:2px;flex-shrink:0;">▌ SAÚDE OPERACIONAL CONSOLIDADA (12 MESES) <span style="color:#2a2a2a;">CH-01</span></div>
-        <svg viewBox="0 0 200 75" style="flex:1;width:100%;" preserveAspectRatio="none">
-          <line x1="0" y1="15" x2="200" y2="15" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
-          <line x1="0" y1="35" x2="200" y2="35" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
-          <line x1="0" y1="55" x2="200" y2="55" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
-          <text x="2" y="14" fill="#2a2a2a" font-size="5">91</text>
-          <text x="2" y="55" fill="#2a2a2a" font-size="5">46</text>
-          <!-- Meta line (cyan dashed) -->
-          <polyline points="0,32 18,31 36,30 55,29 73,29 91,28 109,27 127,28 145,29 163,30 182,31 200,32" fill="none" stroke="rgba(0,200,220,0.45)" stroke-width="0.8" stroke-dasharray="3,2"/>
-          <!-- Health line (green) -->
-          <polygon points="0,52 18,47 36,41 55,35 73,30 91,25 109,21 127,25 145,30 163,37 182,43 200,42 200,75 0,75" fill="rgba(141,198,63,0.07)"/>
-          <polyline points="0,52 18,47 36,41 55,35 73,30 91,25 109,21 127,25 145,30 163,37 182,43 200,42" fill="none" stroke="#8DC63F" stroke-width="1.3"/>
-          <text x="0" y="73" fill="#333" font-size="4.5">Jul</text>
-          <text x="30" y="73" fill="#333" font-size="4.5">Set</text>
-          <text x="62" y="73" fill="#333" font-size="4.5">Nov</text>
-          <text x="93" y="73" fill="#333" font-size="4.5">Jan</text>
-          <text x="124" y="73" fill="#333" font-size="4.5">Mar</text>
-          <text x="155" y="73" fill="#333" font-size="4.5">Mai</text>
-        </svg>
-        <div style="display:flex;gap:8px;flex-shrink:0;margin-top:1px;">
-          <span style="font-size:6px;color:#8DC63F;">— Saúde TI</span>
-          <span style="font-size:6px;color:rgba(0,200,220,0.6);">- - Meta</span>
+      <div class="vp" style="padding:5px 7px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:6px;letter-spacing:.12em;color:#73857b;text-transform:uppercase;">SAÚDE GERAL DE TI</span>
+          <span class="pdot pdot-ok"></span>
+        </div>
+        <div style="margin-top:3px;display:flex;align-items:baseline;gap:2px;">
+          <span style="font-family:'Orbitron',sans-serif;font-size:1.35rem;font-weight:700;color:#b8ff1f;text-shadow:0 0 12px #b8ff1f;">93,1</span>
+          <span style="font-size:7px;color:#73857b;">%</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:2px;">
+          <span style="font-size:6px;color:#ff3d5e;">▼ 1.9%</span>
+          <span style="font-size:6px;color:#b8ff1f;letter-spacing:.1em;">NOMINAL</span>
         </div>
       </div>
-      <!-- Donut chart -->
-      <div style="background:#111;border:1px solid rgba(141,198,63,0.12);border-radius:2px;padding:5px;display:flex;flex-direction:column;min-height:0;">
-        <div style="font-size:7px;color:#555;margin-bottom:2px;flex-shrink:0;">▌ DISTRIBUIÇÃO DE ALERTAS <span style="color:#2a2a2a;">CH-02</span></div>
-        <div style="flex:1;display:flex;gap:5px;align-items:center;min-height:0;overflow:hidden;">
-          <svg viewBox="0 0 70 70" style="width:62px;height:62px;flex-shrink:0;">
-            <!-- r=28, C=175.93 -->
-            <circle cx="35" cy="35" r="28" fill="none" stroke="#1a1a17" stroke-width="10"/>
-            <!-- ITSM 23% = 40.46, start -90 -->
-            <circle cx="35" cy="35" r="28" fill="none" stroke="#8DC63F" stroke-width="9" stroke-dasharray="39.5 136.4" transform="rotate(-90 35 35)"/>
-            <!-- Segurança 15% = 26.39, start -90+82.8=-7.2 -->
-            <circle cx="35" cy="35" r="28" fill="none" stroke="#2196F3" stroke-width="9" stroke-dasharray="25.4 150.5" transform="rotate(-7.2 35 35)"/>
-            <!-- Cloud 22% = 38.70, start 46.8 -->
-            <circle cx="35" cy="35" r="28" fill="none" stroke="#9C27B0" stroke-width="9" stroke-dasharray="37.7 138.2" transform="rotate(46.8 35 35)"/>
-            <!-- Contratos 10% = 17.59, start 126 -->
-            <circle cx="35" cy="35" r="28" fill="none" stroke="#FF9800" stroke-width="9" stroke-dasharray="16.6 159.3" transform="rotate(126 35 35)"/>
-            <!-- Compliance 30% = 52.78, start 162 -->
-            <circle cx="35" cy="35" r="28" fill="none" stroke="#F44336" stroke-width="9" stroke-dasharray="51.8 124.1" transform="rotate(162 35 35)"/>
-            <text x="35" y="32" text-anchor="middle" fill="#fff" font-size="10" font-weight="700" font-family="'Courier New',monospace">171</text>
-            <text x="35" y="41" text-anchor="middle" fill="#444" font-size="5" font-family="'Courier New',monospace">TOTAL</text>
+      <div class="vp" style="padding:5px 7px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:6px;letter-spacing:.12em;color:#73857b;text-transform:uppercase;">INCIDENTES ABERTOS</span>
+          <span class="pdot pdot-warn"></span>
+        </div>
+        <div style="margin-top:3px;display:flex;align-items:baseline;gap:2px;">
+          <span style="font-family:'Orbitron',sans-serif;font-size:1.35rem;font-weight:700;color:#dfeee4;text-shadow:0 0 10px rgba(223,238,228,.3);">29</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:2px;">
+          <span style="font-size:6px;color:#2de2ff;">▲ 4.1%</span>
+          <span style="font-size:6px;color:#ffb01f;letter-spacing:.1em;">ATENÇÃO</span>
+        </div>
+      </div>
+      <div class="vp" style="padding:5px 7px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:6px;letter-spacing:.12em;color:#73857b;text-transform:uppercase;">SLA GLOBAL</span>
+          <span class="pdot pdot-ok"></span>
+        </div>
+        <div style="margin-top:3px;display:flex;align-items:baseline;gap:2px;">
+          <span style="font-family:'Orbitron',sans-serif;font-size:1.35rem;font-weight:700;color:#b8ff1f;text-shadow:0 0 12px #b8ff1f;">97</span>
+          <span style="font-size:7px;color:#73857b;">%</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:2px;">
+          <span style="font-size:6px;color:#ff3d5e;">▼ 1.9%</span>
+          <span style="font-size:6px;color:#b8ff1f;letter-spacing:.1em;">NOMINAL</span>
+        </div>
+      </div>
+      <div class="vp" style="padding:5px 7px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:6px;letter-spacing:.12em;color:#73857b;text-transform:uppercase;">SCORE DE RISCO MÉDIO</span>
+          <span class="pdot pdot-ok"></span>
+        </div>
+        <div style="margin-top:3px;display:flex;align-items:baseline;gap:2px;">
+          <span style="font-family:'Orbitron',sans-serif;font-size:1.35rem;font-weight:700;color:#dfeee4;text-shadow:0 0 10px rgba(223,238,228,.3);">1,8</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:2px;">
+          <span style="font-size:6px;color:#9d6bff;">▼ 3.6%</span>
+          <span style="font-size:6px;color:#b8ff1f;letter-spacing:.1em;">NOMINAL</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHARTS -->
+    <div style="display:grid;grid-template-columns:3fr 2fr;gap:4px;flex:1;min-height:0;">
+
+      <!-- Area Chart -->
+      <div class="vp" style="display:flex;flex-direction:column;min-height:0;overflow:hidden;">
+        <div class="scan" style="border-bottom:1px solid #15202b;padding:4px 8px;display:flex;align-items:center;gap:5px;flex-shrink:0;">
+          <span style="width:3px;height:10px;background:#b8ff1f;box-shadow:0 0 6px #b8ff1f;display:inline-block;flex-shrink:0;"></span>
+          <span style="font-family:'Orbitron',sans-serif;font-size:6.5px;color:rgba(223,238,228,.9);letter-spacing:.08em;text-transform:uppercase;">SAÚDE OPERACIONAL CONSOLIDADA (12 MESES)</span>
+          <span style="font-size:6px;color:#73857b;letter-spacing:.1em;margin-left:4px;">CH-01</span>
+        </div>
+        <div style="flex:1;padding:4px 6px;display:flex;flex-direction:column;min-height:0;">
+          <svg viewBox="0 0 360 120" style="flex:1;width:100%;" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="vg-grad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#b8ff1f" stop-opacity=".32"/>
+                <stop offset="100%" stop-color="#b8ff1f" stop-opacity=".02"/>
+              </linearGradient>
+              <filter id="vg-glow">
+                <feGaussianBlur stdDeviation="2.5" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <!-- Grid -->
+            <line x1="34" x2="350" y1="24" y2="24" stroke="#15202b" stroke-dasharray="3 5"/>
+            <line x1="34" x2="350" y1="54" y2="54" stroke="#15202b" stroke-dasharray="3 5"/>
+            <line x1="34" x2="350" y1="84" y2="84" stroke="#15202b" stroke-dasharray="3 5"/>
+            <!-- Y labels -->
+            <text x="28" y="57" text-anchor="end" font-size="7" fill="#73857b" font-family="monospace">91</text>
+            <text x="28" y="87" text-anchor="end" font-size="7" fill="#73857b" font-family="monospace">46</text>
+            <!-- Meta (cyan dashed) -->
+            <polyline points="34,44 68,43 102,42 136,41 170,41 204,40 238,39 272,40 306,41 340,42 360,43" fill="none" stroke="#2de2ff" stroke-width="1.2" stroke-dasharray="5 4" opacity=".6"/>
+            <!-- Area fill -->
+            <polygon points="34,78 68,72 102,64 136,56 170,48 204,40 238,34 272,40 306,47 340,56 360,54 360,98 34,98" fill="url(#vg-grad)"/>
+            <!-- Line -->
+            <polyline points="34,78 68,72 102,64 136,56 170,48 204,40 238,34 272,40 306,47 340,56 360,54" fill="none" stroke="#b8ff1f" stroke-width="2" filter="url(#vg-glow)"/>
+            <!-- Live dot -->
+            <circle cx="360" cy="54" r="3.5" fill="#b8ff1f" class="livedot"/>
+            <!-- X labels -->
+            <text x="34" y="110" text-anchor="middle" font-size="7" fill="#73857b" font-family="monospace">Jul</text>
+            <text x="102" y="110" text-anchor="middle" font-size="7" fill="#73857b" font-family="monospace">Set</text>
+            <text x="170" y="110" text-anchor="middle" font-size="7" fill="#73857b" font-family="monospace">Nov</text>
+            <text x="238" y="110" text-anchor="middle" font-size="7" fill="#73857b" font-family="monospace">Jan</text>
+            <text x="306" y="110" text-anchor="middle" font-size="7" fill="#73857b" font-family="monospace">Mar</text>
+            <text x="360" y="110" text-anchor="middle" font-size="7" fill="#73857b" font-family="monospace">Mai</text>
           </svg>
-          <div style="display:flex;flex-direction:column;gap:3px;flex:1;">
-            <div style="display:flex;align-items:center;gap:3px;"><span style="width:6px;height:6px;background:#8DC63F;display:inline-block;flex-shrink:0;border-radius:1px;"></span><span style="font-size:7px;color:#777;flex:1;">ITSM</span><span style="font-size:7px;color:#8DC63F;font-weight:700;">23%</span></div>
-            <div style="display:flex;align-items:center;gap:3px;"><span style="width:6px;height:6px;background:#2196F3;display:inline-block;flex-shrink:0;border-radius:1px;"></span><span style="font-size:7px;color:#777;flex:1;">Segurança</span><span style="font-size:7px;color:#2196F3;font-weight:700;">15%</span></div>
-            <div style="display:flex;align-items:center;gap:3px;"><span style="width:6px;height:6px;background:#9C27B0;display:inline-block;flex-shrink:0;border-radius:1px;"></span><span style="font-size:7px;color:#777;flex:1;">Cloud</span><span style="font-size:7px;color:#9C27B0;font-weight:700;">22%</span></div>
-            <div style="display:flex;align-items:center;gap:3px;"><span style="width:6px;height:6px;background:#FF9800;display:inline-block;flex-shrink:0;border-radius:1px;"></span><span style="font-size:7px;color:#777;flex:1;">Contratos</span><span style="font-size:7px;color:#FF9800;font-weight:700;">10%</span></div>
-            <div style="display:flex;align-items:center;gap:3px;"><span style="width:6px;height:6px;background:#F44336;display:inline-block;flex-shrink:0;border-radius:1px;"></span><span style="font-size:7px;color:#777;flex:1;">Compliance</span><span style="font-size:7px;color:#F44336;font-weight:700;">30%</span></div>
+          <div style="display:flex;gap:8px;margin-top:2px;flex-shrink:0;">
+            <span style="font-size:7px;color:#b8ff1f;">— Saúde TI</span>
+            <span style="font-size:7px;color:rgba(45,226,255,.7);">- - Meta</span>
           </div>
         </div>
       </div>
+
+      <!-- Donut Chart -->
+      <div class="vp" style="display:flex;flex-direction:column;min-height:0;overflow:hidden;">
+        <div class="scan" style="border-bottom:1px solid #15202b;padding:4px 8px;display:flex;align-items:center;gap:5px;flex-shrink:0;">
+          <span style="width:3px;height:10px;background:#b8ff1f;box-shadow:0 0 6px #b8ff1f;display:inline-block;flex-shrink:0;"></span>
+          <span style="font-family:'Orbitron',sans-serif;font-size:6.5px;color:rgba(223,238,228,.9);letter-spacing:.08em;text-transform:uppercase;">DISTRIBUIÇÃO DE ALERTAS</span>
+          <span style="font-size:6px;color:#73857b;letter-spacing:.1em;margin-left:2px;">CH-02</span>
+        </div>
+        <div style="flex:1;padding:4px 8px;display:flex;align-items:center;gap:6px;min-height:0;">
+          <!-- C = 2*PI*58 = 364.42 -->
+          <svg viewBox="0 0 160 160" style="width:100px;height:100px;flex-shrink:0;">
+            <defs>
+              <filter id="vg-dglow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <circle cx="80" cy="80" r="58" fill="none" stroke="#0f1822" stroke-width="16"/>
+            <!-- ITSM 24% = 87.46, offset=C/4=91.1, start=-90deg -->
+            <circle cx="80" cy="80" r="58" fill="none" stroke="#b8ff1f" stroke-width="16" stroke-dasharray="85 281.4" stroke-dashoffset="91.1" filter="url(#vg-dglow)"/>
+            <!-- Segurança 14% = 51.02 -->
+            <circle cx="80" cy="80" r="58" fill="none" stroke="#2de2ff" stroke-width="12" stroke-dasharray="49 317.4" stroke-dashoffset="91.1" transform="rotate(86.4 80 80)"/>
+            <!-- Cloud 22% = 80.17 -->
+            <circle cx="80" cy="80" r="58" fill="none" stroke="#9d6bff" stroke-width="12" stroke-dasharray="78.1 288.3" stroke-dashoffset="91.1" transform="rotate(136.8 80 80)"/>
+            <!-- Contratos 10% = 36.44 -->
+            <circle cx="80" cy="80" r="58" fill="none" stroke="#ffb01f" stroke-width="12" stroke-dasharray="34.4 332" stroke-dashoffset="91.1" transform="rotate(215.9 80 80)"/>
+            <!-- Compliance 30% = 109.3 -->
+            <circle cx="80" cy="80" r="58" fill="none" stroke="#ff3d5e" stroke-width="12" stroke-dasharray="107.3 259.1" stroke-dashoffset="91.1" transform="rotate(251.9 80 80)"/>
+            <text x="80" y="76" text-anchor="middle" font-size="20" fill="#dfeee4" font-family="'Orbitron',monospace" font-weight="bold">173</text>
+            <text x="80" y="90" text-anchor="middle" font-size="7" fill="#73857b" font-family="monospace" letter-spacing="2">TOTAL</text>
+          </svg>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:4px;font-size:8px;min-width:0;">
+            <li style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;background:#b8ff1f;display:inline-block;flex-shrink:0;"></span><span style="color:rgba(223,238,228,.8);flex:1;">ITSM</span><span style="color:#73857b;font-family:monospace;">24%</span></li>
+            <li style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;background:#2de2ff;display:inline-block;flex-shrink:0;"></span><span style="color:rgba(223,238,228,.8);flex:1;">Segurança</span><span style="color:#73857b;font-family:monospace;">14%</span></li>
+            <li style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;background:#9d6bff;display:inline-block;flex-shrink:0;"></span><span style="color:rgba(223,238,228,.8);flex:1;">Cloud</span><span style="color:#73857b;font-family:monospace;">22%</span></li>
+            <li style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;background:#ffb01f;display:inline-block;flex-shrink:0;"></span><span style="color:rgba(223,238,228,.8);flex:1;">Contratos</span><span style="color:#73857b;font-family:monospace;">10%</span></li>
+            <li style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;background:#ff3d5e;display:inline-block;flex-shrink:0;"></span><span style="color:rgba(223,238,228,.8);flex:1;">Compliance</span><span style="color:#73857b;font-family:monospace;">30%</span></li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- TAB 1: INDICADORES ESTRATÉGICOS -->
+  <!-- TAB 1: INDICADORES -->
   <div id="vgd-t1" style="display:none;flex:1;padding:5px 8px;overflow:hidden;">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;height:100%;">
-      <div style="background:#111;border:1px solid rgba(141,198,63,0.15);border-radius:2px;padding:8px;display:flex;flex-direction:column;gap:4px;">
-        <div style="font-size:6px;color:#555;text-transform:uppercase;letter-spacing:0.1em;">Disponibilidade Sistemas Críticos</div>
-        <div style="font-size:1.5rem;color:#8DC63F;font-weight:700;line-height:1;">99,7%</div>
-        <div style="background:#1a1a17;border-radius:1px;height:3px;margin-top:2px;"><div style="background:#8DC63F;width:99.7%;height:100%;border-radius:1px;transition:width 0.8s;"></div></div>
-        <div style="font-size:7px;color:#555;">Meta: 99,5% &nbsp;·&nbsp; <span style="color:#8DC63F;">▲ Superado</span></div>
+      <div class="vp" style="padding:8px 10px;display:flex;flex-direction:column;gap:4px;">
+        <span style="font-size:6px;color:#73857b;text-transform:uppercase;letter-spacing:.12em;">Disponibilidade Sistemas Críticos</span>
+        <div style="font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:700;color:#b8ff1f;text-shadow:0 0 14px #b8ff1f;line-height:1;">99,7%</div>
+        <div style="background:#0f1822;height:3px;border-radius:1px;"><div style="background:#b8ff1f;width:99.7%;height:100%;box-shadow:0 0 6px #b8ff1f;border-radius:1px;"></div></div>
+        <span style="font-size:7px;color:#73857b;">Meta: 99,5% &nbsp;·&nbsp; <span style="color:#b8ff1f;">▲ Superado</span></span>
       </div>
-      <div style="background:#111;border:1px solid rgba(141,198,63,0.15);border-radius:2px;padding:8px;display:flex;flex-direction:column;gap:4px;">
-        <div style="font-size:6px;color:#555;text-transform:uppercase;letter-spacing:0.1em;">MTTR Médio</div>
-        <div style="font-size:1.5rem;color:#fff;font-weight:700;line-height:1;">2,3h</div>
-        <div style="background:#1a1a17;border-radius:1px;height:3px;margin-top:2px;"><div style="background:#2196F3;width:57%;height:100%;border-radius:1px;"></div></div>
-        <div style="font-size:7px;color:#555;">Meta: &lt;4h &nbsp;·&nbsp; <span style="color:#2196F3;">▲ Dentro do SLA</span></div>
+      <div class="vp" style="padding:8px 10px;display:flex;flex-direction:column;gap:4px;">
+        <span style="font-size:6px;color:#73857b;text-transform:uppercase;letter-spacing:.12em;">MTTR Médio</span>
+        <div style="font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:700;color:#dfeee4;line-height:1;">2,3h</div>
+        <div style="background:#0f1822;height:3px;border-radius:1px;"><div style="background:#2de2ff;width:57%;height:100%;box-shadow:0 0 6px #2de2ff;border-radius:1px;"></div></div>
+        <span style="font-size:7px;color:#73857b;">Meta: &lt;4h &nbsp;·&nbsp; <span style="color:#2de2ff;">▲ Dentro do SLA</span></span>
       </div>
-      <div style="background:#111;border:1px solid rgba(141,198,63,0.15);border-radius:2px;padding:8px;display:flex;flex-direction:column;gap:4px;">
-        <div style="font-size:6px;color:#555;text-transform:uppercase;letter-spacing:0.1em;">Conformidade LGPD</div>
-        <div style="font-size:1.5rem;color:#8DC63F;font-weight:700;line-height:1;">94,1%</div>
-        <div style="background:#1a1a17;border-radius:1px;height:3px;margin-top:2px;"><div style="background:#8DC63F;width:94.1%;height:100%;border-radius:1px;"></div></div>
-        <div style="font-size:7px;color:#555;">Meta: 90% &nbsp;·&nbsp; <span style="color:#8DC63F;">▲ Superado</span></div>
+      <div class="vp" style="padding:8px 10px;display:flex;flex-direction:column;gap:4px;">
+        <span style="font-size:6px;color:#73857b;text-transform:uppercase;letter-spacing:.12em;">Conformidade LGPD</span>
+        <div style="font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:700;color:#b8ff1f;text-shadow:0 0 14px #b8ff1f;line-height:1;">94,1%</div>
+        <div style="background:#0f1822;height:3px;border-radius:1px;"><div style="background:#b8ff1f;width:94.1%;height:100%;box-shadow:0 0 6px #b8ff1f;border-radius:1px;"></div></div>
+        <span style="font-size:7px;color:#73857b;">Meta: 90% &nbsp;·&nbsp; <span style="color:#b8ff1f;">▲ Superado</span></span>
       </div>
-      <div style="background:#111;border:1px solid rgba(255,152,0,0.2);border-radius:2px;padding:8px;display:flex;flex-direction:column;gap:4px;">
-        <div style="font-size:6px;color:#555;text-transform:uppercase;letter-spacing:0.1em;">Budget TI Utilizado</div>
-        <div style="font-size:1.5rem;color:#FF9800;font-weight:700;line-height:1;">78,4%</div>
-        <div style="background:#1a1a17;border-radius:1px;height:3px;margin-top:2px;"><div style="background:#FF9800;width:78.4%;height:100%;border-radius:1px;"></div></div>
-        <div style="font-size:7px;color:#555;">R$ 3,2M / R$ 4,1M &nbsp;·&nbsp; <span style="color:#FF9800;">Q3 2026</span></div>
+      <div class="vp vp-amb" style="padding:8px 10px;display:flex;flex-direction:column;gap:4px;">
+        <span style="font-size:6px;color:#73857b;text-transform:uppercase;letter-spacing:.12em;">Budget TI Utilizado</span>
+        <div style="font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:700;color:#ffb01f;text-shadow:0 0 12px #ffb01f;line-height:1;">78,4%</div>
+        <div style="background:#0f1822;height:3px;border-radius:1px;"><div style="background:#ffb01f;width:78.4%;height:100%;box-shadow:0 0 6px #ffb01f;border-radius:1px;"></div></div>
+        <span style="font-size:7px;color:#73857b;">R$ 3,2M / R$ 4,1M &nbsp;·&nbsp; <span style="color:#ffb01f;">Q3 2026</span></span>
       </div>
     </div>
   </div>
@@ -399,62 +510,66 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
   <!-- TAB 2: ALERTAS CRÍTICOS -->
   <div id="vgd-t2" style="display:none;flex:1;padding:5px 8px;overflow:hidden;">
     <div style="display:flex;flex-direction:column;gap:3px;">
-      <div style="background:#160808;border:1px solid rgba(244,67,54,0.35);border-radius:2px;padding:5px 7px;display:flex;justify-content:space-between;align-items:center;gap:6px;">
+      <div class="vp vp-red" style="padding:5px 8px;display:flex;justify-content:space-between;align-items:center;gap:6px;">
         <div style="flex:1;min-width:0;">
-          <div style="font-size:7px;color:#F44336;font-weight:700;letter-spacing:0.05em;">P1 &nbsp;·&nbsp; INC-2847</div>
-          <div style="font-size:9px;color:#ccc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Falha autenticação MFA — sistemas críticos</div>
+          <div style="font-size:7px;color:#ff3d5e;font-family:'Orbitron',sans-serif;letter-spacing:.06em;">P1 &nbsp;·&nbsp; INC-2847</div>
+          <div style="font-size:9px;color:#dfeee4;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Falha autenticação MFA — sistemas críticos</div>
         </div>
-        <span style="font-size:7px;background:rgba(244,67,54,0.15);color:#F44336;border:1px solid rgba(244,67,54,0.4);border-radius:2px;padding:2px 6px;white-space:nowrap;flex-shrink:0;">CRÍTICO</span>
+        <span class="pdot pdot-crit" style="flex-shrink:0;"></span>
+        <span style="font-size:7px;background:rgba(255,61,94,.12);color:#ff3d5e;border:1px solid rgba(255,61,94,.4);padding:2px 7px;flex-shrink:0;letter-spacing:.08em;">CRÍTICO</span>
       </div>
-      <div style="background:#130e04;border:1px solid rgba(255,152,0,0.3);border-radius:2px;padding:5px 7px;display:flex;justify-content:space-between;align-items:center;gap:6px;">
+      <div class="vp vp-amb" style="padding:5px 8px;display:flex;justify-content:space-between;align-items:center;gap:6px;">
         <div style="flex:1;min-width:0;">
-          <div style="font-size:7px;color:#FF9800;font-weight:700;letter-spacing:0.05em;">P2 &nbsp;·&nbsp; CON-1322</div>
-          <div style="font-size:9px;color:#ccc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">SLA violado — suporte legado mainframe</div>
+          <div style="font-size:7px;color:#ffb01f;font-family:'Orbitron',sans-serif;letter-spacing:.06em;">P2 &nbsp;·&nbsp; CON-1322</div>
+          <div style="font-size:9px;color:#dfeee4;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">SLA violado — suporte legado mainframe</div>
         </div>
-        <span style="font-size:7px;background:rgba(255,152,0,0.15);color:#FF9800;border:1px solid rgba(255,152,0,0.35);border-radius:2px;padding:2px 6px;white-space:nowrap;flex-shrink:0;">ALTO</span>
+        <span class="pdot pdot-warn" style="flex-shrink:0;"></span>
+        <span style="font-size:7px;background:rgba(255,176,31,.12);color:#ffb01f;border:1px solid rgba(255,176,31,.4);padding:2px 7px;flex-shrink:0;letter-spacing:.08em;">ALTO</span>
       </div>
-      <div style="background:#130e04;border:1px solid rgba(255,152,0,0.3);border-radius:2px;padding:5px 7px;display:flex;justify-content:space-between;align-items:center;gap:6px;">
+      <div class="vp vp-amb" style="padding:5px 8px;display:flex;justify-content:space-between;align-items:center;gap:6px;">
         <div style="flex:1;min-width:0;">
-          <div style="font-size:7px;color:#FF9800;font-weight:700;letter-spacing:0.05em;">P2 &nbsp;·&nbsp; ISO27001-04</div>
-          <div style="font-size:9px;color:#ccc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Controle de acesso privilegiado — revisão pendente</div>
+          <div style="font-size:7px;color:#ffb01f;font-family:'Orbitron',sans-serif;letter-spacing:.06em;">P2 &nbsp;·&nbsp; ISO27001-04</div>
+          <div style="font-size:9px;color:#dfeee4;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Controle de acesso privilegiado — revisão pendente</div>
         </div>
-        <span style="font-size:7px;background:rgba(255,152,0,0.15);color:#FF9800;border:1px solid rgba(255,152,0,0.35);border-radius:2px;padding:2px 6px;white-space:nowrap;flex-shrink:0;">ALTO</span>
+        <span class="pdot pdot-warn" style="flex-shrink:0;"></span>
+        <span style="font-size:7px;background:rgba(255,176,31,.12);color:#ffb01f;border:1px solid rgba(255,176,31,.4);padding:2px 7px;flex-shrink:0;letter-spacing:.08em;">ALTO</span>
       </div>
-      <div style="background:#0d110d;border:1px solid rgba(141,198,63,0.15);border-radius:2px;padding:5px 7px;display:flex;justify-content:space-between;align-items:center;gap:6px;">
+      <div class="vp" style="padding:5px 8px;display:flex;justify-content:space-between;align-items:center;gap:6px;">
         <div style="flex:1;min-width:0;">
-          <div style="font-size:7px;color:#8DC63F;font-weight:700;letter-spacing:0.05em;">P3 &nbsp;·&nbsp; ITIL-12</div>
-          <div style="font-size:9px;color:#ccc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Change management — 6 aprovações em atraso</div>
+          <div style="font-size:7px;color:#b8ff1f;font-family:'Orbitron',sans-serif;letter-spacing:.06em;">P3 &nbsp;·&nbsp; ITIL-12</div>
+          <div style="font-size:9px;color:#dfeee4;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Change management — 6 aprovações em atraso</div>
         </div>
-        <span style="font-size:7px;background:rgba(141,198,63,0.1);color:#8DC63F;border:1px solid rgba(141,198,63,0.25);border-radius:2px;padding:2px 6px;white-space:nowrap;flex-shrink:0;">MÉDIO</span>
+        <span class="pdot pdot-ok" style="flex-shrink:0;"></span>
+        <span style="font-size:7px;background:rgba(184,255,31,.08);color:#b8ff1f;border:1px solid rgba(184,255,31,.3);padding:2px 7px;flex-shrink:0;letter-spacing:.08em;">MÉDIO</span>
       </div>
     </div>
   </div>
 
-  <script>
-  (function(){
-    var _tabs=document.getElementById('vgd-tabs').children;
-    var _panels=[document.getElementById('vgd-t0'),document.getElementById('vgd-t1'),document.getElementById('vgd-t2')];
-    window.vgdTab=function(n){
-      for(var i=0;i<3;i++){
-        _tabs[i].style.color=i===n?'#8DC63F':'#444';
-        _tabs[i].style.borderBottom=i===n?'1px solid #8DC63F':'1px solid transparent';
-        _panels[i].style.display='none';
-      }
-      _panels[n].style.display='flex';
-      if(n===1||n===2) _panels[n].style.display='block';
-    };
-    function vgdClock(){
-      var d=new Date();
-      var h=d.getHours().toString().padStart(2,'0');
-      var m=d.getMinutes().toString().padStart(2,'0');
-      var s=d.getSeconds().toString().padStart(2,'0');
-      var el=document.getElementById('vgd-clock');
-      if(el) el.textContent=h+':'+m+':'+s;
+</div>
+
+<script>
+(function(){
+  var _t=document.getElementById('vgd-tabs').children;
+  var _p=[document.getElementById('vgd-t0'),document.getElementById('vgd-t1'),document.getElementById('vgd-t2')];
+  window.vgdTab=function(n){
+    for(var i=0;i<3;i++){
+      _t[i].className='tab-btn'+(i===n?' active':'');
+      _p[i].style.display='none';
     }
-    vgdClock();
-    setInterval(vgdClock,1000);
-  })();
-  </script>
+    _p[n].style.display='flex';
+    if(n===1||n===2) _p[n].style.display='block';
+  };
+  function clk(){
+    var d=new Date();
+    var s=d.toTimeString().substr(0,8);
+    var e=document.getElementById('vgd-clock');
+    var t=document.getElementById('vgd-tele');
+    if(e) e.textContent=s;
+    if(t) t.textContent=s;
+  }
+  clk(); setInterval(clk,1000);
+})();
+</script>
 </div>
         </div>
       </div>
