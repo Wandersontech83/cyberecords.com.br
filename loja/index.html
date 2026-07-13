@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loja Cyber Records — Acessórios de Tecnologia</title>
+<meta name="description" content="Fone Bluetooth, smartwatch, carregadores e cabos turbo com entrega rápida. Pague por PIX ou cartão de crédito, ou combine direto pelo WhatsApp.">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --green:#5FA028;--green-dark:#3F7A18;--black:#171712;--ink:#20201A;
+  --bg:#F7F6F1;--card:#FFFFFF;--border:#E4E1D6;--border-strong:#D3CFC0;
+  --text:#20201A;--text2:#5C594E;--text3:#8A8676;
+  --font-display:'Bebas Neue',sans-serif;--font-cond:'Barlow Condensed',sans-serif;
+  --font-body:'Barlow',sans-serif;--radius:14px;--radius-sm:8px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+a{color:inherit;}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:rgba(247,246,241,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
+.brand{display:flex;flex-direction:column;line-height:1.1;}
+.brand-name{font-family:var(--font-cond);font-size:16px;font-weight:700;letter-spacing:0.04em;color:var(--black);text-decoration:none;}
+.brand-sub{font-family:var(--font-cond);font-size:11px;letter-spacing:0.15em;color:var(--green-dark);text-transform:uppercase;}
+.cart-btn{position:relative;display:flex;align-items:center;gap:8px;background:var(--black);color:#fff;border:none;border-radius:999px;padding:10px 18px;font-family:var(--font-cond);font-size:13px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;}
+.cart-badge{position:absolute;top:-6px;right:-6px;background:var(--green);color:#fff;font-size:11px;font-weight:700;border-radius:999px;min-width:20px;height:20px;display:flex;align-items:center;justify-content:center;padding:0 4px;}
+
+/* HERO */
+.store-hero{padding:3rem 2rem 2rem;text-align:center;max-width:720px;margin:0 auto;}
+.store-hero h1{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,3.2rem);color:var(--black);line-height:1.05;}
+.store-hero h1 span{color:var(--green-dark);}
+.store-hero p{font-size:15px;color:var(--text2);margin-top:0.75rem;font-weight:300;}
+.back-link{display:inline-block;margin-top:1rem;font-family:var(--font-cond);font-size:12px;letter-spacing:0.08em;color:var(--text3);text-decoration:underline;text-underline-offset:3px;}
+
+/* SECTIONS */
+section{padding:2.5rem 2rem;}
+.container{max-width:1100px;margin:0 auto;}
+.section-label{font-family:var(--font-cond);font-size:11px;font-weight:700;letter-spacing:0.25em;color:var(--green-dark);text-transform:uppercase;margin-bottom:0.5rem;}
+.section-title{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.6rem);color:var(--black);margin-bottom:1.5rem;}
+
+/* PRODUCT GRID */
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+.product-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;position:relative;transition:box-shadow 0.2s,border-color 0.2s;}
+.product-card:hover{border-color:var(--border-strong);box-shadow:0 8px 24px rgba(32,32,26,0.06);}
+.product-card.featured{border-color:var(--green);box-shadow:0 8px 24px rgba(95,160,40,0.12);}
+.product-badge{position:absolute;top:12px;left:12px;background:var(--green);color:#fff;font-family:var(--font-cond);font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;border-radius:999px;z-index:2;}
+.product-photo{aspect-ratio:1/1;background:linear-gradient(135deg,#EFEDE3,#E4E1D6);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;overflow:hidden;}
+.product-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.product-photo .ph-icon{font-size:2.8rem;opacity:0.75;}
+.product-photo .ph-label{font-family:var(--font-cond);font-size:10px;letter-spacing:0.12em;color:var(--text3);text-transform:uppercase;}
+.product-body{padding:1.25rem;display:flex;flex-direction:column;gap:0.6rem;flex:1;}
+.product-name{font-family:var(--font-cond);font-size:16px;font-weight:700;color:var(--black);line-height:1.2;}
+.product-desc{font-size:13px;color:var(--text2);font-weight:300;line-height:1.5;flex:1;}
+.product-price{font-family:var(--font-display);font-size:1.6rem;color:var(--green-dark);}
+.product-price-pix{font-family:var(--font-cond);font-size:12px;font-weight:600;color:var(--green-dark);margin-top:-4px;}
+.product-price-pix b{font-weight:700;}
+.product-variant{display:flex;flex-direction:column;gap:6px;}
+.product-variant label{font-family:var(--font-cond);font-size:11px;letter-spacing:0.08em;color:var(--text3);text-transform:uppercase;}
+.variant-select{border:1px solid var(--border-strong);border-radius:6px;padding:8px 10px;font-family:var(--font-body);font-size:13px;background:#fff;color:var(--text);}
+.btn-add{background:var(--black);color:#fff;border:none;border-radius:8px;padding:11px;font-family:var(--font-cond);font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;}
+.btn-add:hover{background:var(--green-dark);}
+.btn-card{display:block;text-align:center;border:1px solid var(--border-strong);border-radius:8px;padding:9px;font-family:var(--font-cond);font-size:12px;font-weight:600;letter-spacing:0.04em;color:var(--text2);text-decoration:none;transition:border-color 0.2s,color 0.2s;}
+.btn-card:hover{border-color:var(--green);color:var(--green-dark);}
+.upsell-chip{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#EFF6E7;border:1px dashed var(--green);border-radius:8px;padding:8px 10px;font-size:12px;color:var(--text2);}
+.upsell-chip button{background:none;border:none;color:var(--green-dark);font-weight:700;font-family:var(--font-cond);font-size:12px;text-transform:uppercase;cursor:pointer;text-decoration:underline;}
+
+/* TRUST / POLICY / FAQ */
+.trust-bar{display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:center;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem 2rem;text-align:center;}
+.trust-item{flex:1;min-width:180px;}
+.trust-item .t-title{font-family:var(--font-cond);font-size:13px;font-weight:700;color:var(--black);text-transform:uppercase;letter-spacing:0.04em;}
+.trust-item .t-desc{font-size:12px;color:var(--text3);margin-top:2px;}
+.marketplace-links{margin-top:1rem;text-align:center;font-size:12px;color:var(--text3);}
+.faq-item{border-bottom:1px solid var(--border);padding:1rem 0;}
+.faq-item h3{font-family:var(--font-cond);font-size:15px;font-weight:700;color:var(--black);margin-bottom:0.4rem;}
+.faq-item p{font-size:13px;color:var(--text2);font-weight:300;line-height:1.6;}
+
+/* CART DRAWER */
+.overlay{position:fixed;inset:0;background:rgba(23,23,18,0.45);opacity:0;visibility:hidden;transition:opacity 0.25s,visibility 0.25s;z-index:200;}
+.overlay.open{opacity:1;visibility:visible;}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,92vw);background:#fff;z-index:201;transform:translateX(100%);transition:transform 0.3s ease;display:flex;flex-direction:column;box-shadow:-8px 0 30px rgba(0,0,0,0.15);}
+.drawer.open{transform:translateX(0);}
+.drawer-header{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);}
+.drawer-header h2{font-family:var(--font-display);font-size:1.4rem;color:var(--black);}
+.drawer-close{background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text2);}
+.drawer-items{flex:1;overflow-y:auto;padding:1rem 1.5rem;display:flex;flex-direction:column;gap:1rem;}
+.drawer-empty{color:var(--text3);font-size:14px;text-align:center;margin-top:2rem;}
+.cart-item{display:flex;gap:0.75rem;align-items:center;border-bottom:1px solid var(--border);padding-bottom:1rem;}
+.cart-item .ci-icon{font-size:1.6rem;width:44px;height:44px;background:var(--bg);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cart-item .ci-info{flex:1;}
+.cart-item .ci-name{font-family:var(--font-cond);font-size:14px;font-weight:700;color:var(--black);}
+.cart-item .ci-variant{font-size:11px;color:var(--text3);}
+.cart-item .ci-controls{display:flex;align-items:center;gap:8px;margin-top:4px;}
+.qty-btn{width:22px;height:22px;border:1px solid var(--border-strong);background:#fff;border-radius:5px;cursor:pointer;font-size:13px;line-height:1;}
+.ci-price{font-family:var(--font-cond);font-weight:700;color:var(--green-dark);font-size:13px;}
+.ci-remove{background:none;border:none;color:var(--text3);font-size:12px;text-decoration:underline;cursor:pointer;margin-left:auto;}
+.drawer-footer{border-top:1px solid var(--border);padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:0.75rem;}
+.drawer-subtotal{display:flex;justify-content:space-between;font-family:var(--font-cond);font-size:15px;font-weight:700;color:var(--black);}
+.btn-checkout{background:var(--green-dark);color:#fff;border:none;border-radius:8px;padding:13px;font-family:var(--font-cond);font-size:14px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;}
+.btn-checkout:disabled{background:var(--border-strong);cursor:not-allowed;}
+
+/* CHECKOUT MODAL */
+.modal{position:fixed;inset:0;z-index:210;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;visibility:hidden;transition:opacity 0.25s,visibility 0.25s;}
+.modal.open{opacity:1;visibility:visible;}
+.modal-box{background:#fff;border-radius:var(--radius);max-width:520px;width:100%;max-height:88vh;overflow-y:auto;padding:1.75rem;}
+.modal-box h2{font-family:var(--font-display);font-size:1.6rem;color:var(--black);margin-bottom:1rem;}
+.checkout-option{border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem 1.25rem;margin-bottom:1rem;}
+.checkout-option h3{font-family:var(--font-cond);font-size:14px;font-weight:700;color:var(--black);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.5rem;display:flex;align-items:center;gap:8px;}
+.checkout-option p{font-size:13px;color:var(--text2);font-weight:300;line-height:1.6;margin-bottom:0.5rem;}
+.pix-key-box{background:var(--bg);border:1px dashed var(--border-strong);border-radius:6px;padding:10px 12px;font-family:'Courier New',monospace;font-size:13px;color:var(--text);word-break:break-all;}
+.qr-placeholder{width:120px;height:120px;background:var(--bg);border:1px dashed var(--border-strong);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text3);text-align:center;margin:0.75rem 0;}
+.card-item-link{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.card-item-link a{color:var(--green-dark);font-weight:700;text-decoration:underline;}
+.btn-wa{display:block;text-align:center;background:#25D366;color:#fff;border-radius:8px;padding:12px;font-family:var(--font-cond);font-weight:700;letter-spacing:0.04em;text-decoration:none;text-transform:uppercase;font-size:13px;}
+.modal-close{float:right;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--text2);}
+
+footer{background:var(--black);color:#c9c6ba;padding:2.5rem 2rem;margin-top:2rem;}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.5rem;align-items:center;}
+footer a{color:#c9c6ba;text-decoration:none;}
+footer a:hover{color:var(--green);}
+.footer-copy{width:100%;font-size:11px;color:#7a7768;margin-top:1rem;}
+
+@media(max-width:900px){
+  .product-grid{grid-template-columns:1fr 1fr;}
+  .trust-bar{flex-direction:column;}
+}
+@media(max-width:480px){
+  .product-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="../" class="brand" style="text-decoration:none;">
+    <span class="brand-name">Cyber Records</span>
+    <span class="brand-sub">Loja de Acessórios</span>
+  </a>
+  <button class="cart-btn" id="openCart">🛒 Carrinho<span class="cart-badge" id="cartCount">0</span></button>
+</header>
+
+<div class="store-hero">
+  <h1>Acessórios de tecnologia <span>prontos para usar</span></h1>
+  <p>Fone Bluetooth, smartwatch, carregadores e cabos turbo com entrega rápida. Pague por PIX ou cartão de crédito, ou combine direto pelo WhatsApp.</p>
+  <a href="../" class="back-link">← Voltar para Cyber Records (Governança de TI &amp; IA)</a>
+</div>
+
+<section>
+  <div class="container">
+    <div class="section-label">Estoque disponível</div>
+    <h2 class="section-title">Produtos</h2>
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="trust-bar">
+      <div class="trust-item">
+        <div class="t-title">Loja Cyber Records</div>
+        <!-- SUBSTITUA pelo CNPJ real -->
+        <div class="t-desc">CNPJ 00.000.000/0000-00 (placeholder)</div>
+      </div>
+      <div class="trust-item">
+        <div class="t-title">Troca em 7 dias</div>
+        <div class="t-desc">Direito de arrependimento — CDC, art. 49</div>
+      </div>
+      <div class="trust-item">
+        <div class="t-title">Garantia de 7 dias</div>
+        <div class="t-desc">Contra defeitos de fabricação</div>
+      </div>
+    </div>
+    <!-- ATIVAR quando os anúncios estiverem no ar:
+    <div class="marketplace-links">Também na <a href="#">Shopee</a> e no <a href="#">Mercado Livre</a></div>
+    -->
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label">Dúvidas</div>
+    <h2 class="section-title">Perguntas frequentes</h2>
+    <div class="faq-item">
+      <h3>Qual o prazo de envio?</h3>
+      <p>Pedidos combinados por retirada local saem no mesmo dia útil. Para envio, o prazo é combinado direto pelo WhatsApp após a confirmação do pagamento.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Quais as formas de pagamento?</h3>
+      <p>PIX (com 5% de desconto) ou cartão de crédito (parcelamento disponível), ou fechamento direto pelo WhatsApp.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Os produtos têm garantia?</h3>
+      <p>Sim, garantia de 7 dias contra defeitos de fabricação, contados da entrega. Você também tem direito de arrependimento em até 7 dias corridos após o recebimento, conforme o art. 49 do CDC.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Como funciona o frete?</h3>
+      <p>Frete não é calculado automaticamente nesta loja — combinamos a melhor opção (retirada local ou envio) diretamente pelo WhatsApp.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <!-- SUBSTITUA pelo número real, se diferente do site institucional -->
+      <a href="https://wa.me/5511992299688" target="_blank">💬 WhatsApp comercial</a>
+    </div>
+    <div>
+      <!-- SUBSTITUA @cyberecords pelo perfil real -->
+      <a href="https://instagram.com/cyberecords" target="_blank">📷 @cyberecords</a>
+    </div>
+    <div class="footer-copy">© 2025 Cyber Records — Loja de Acessórios. Fotos meramente ilustrativas.</div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="cartDrawer">
+  <div class="drawer-header">
+    <h2>Seu carrinho</h2>
+    <button class="drawer-close" id="closeCart">✕</button>
+  </div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-footer">
+    <div class="drawer-subtotal"><span>Subtotal</span><span id="cartSubtotal">R$ 0,00</span></div>
+    <div style="font-size:12px;color:var(--green-dark);text-align:right;" id="cartPixHint"></div>
+    <button class="btn-checkout" id="openCheckout" disabled>Finalizar pedido</button>
+  </div>
+</aside>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal" id="checkoutModal">
+  <div class="modal-box">
+    <button class="modal-close" id="closeCheckout">✕</button>
+    <h2>Finalizar pedido</h2>
+
+    <div class="checkout-option">
+      <h3>💠 PIX <span style="color:var(--green-dark);font-size:11px;">· 5% de desconto</span></h3>
+      <p>Total no PIX: <b id="pixTotal"></b> <span style="text-decoration:line-through;color:var(--text3);" id="pixTotalFull"></span></p>
+      <p>Envie o valor com desconto para a chave abaixo e mande o comprovante pelo WhatsApp para confirmarmos seu pedido.</p>
+      <!-- SUBSTITUA pela chave PIX real -->
+      <div class="pix-key-box">Chave PIX: pix@cyberecords.com.br (placeholder)</div>
+      <div class="qr-placeholder">QR Code<br>em breve</div>
+    </div>
+
+    <div class="checkout-option">
+      <h3>💳 Cartão de Crédito</h3>
+      <p>Pague cada item pelo link de pagamento correspondente:</p>
+      <div id="cardLinksList"></div>
+    </div>
+
+    <div class="checkout-option">
+      <h3>💬 Fechar pelo WhatsApp</h3>
+      <p>Envie seu pedido com um clique — já vai com os itens, quantidades e cores escolhidas.</p>
+      <a href="#" id="waCheckoutLink" target="_blank" class="btn-wa">Enviar pedido pelo WhatsApp</a>
+    </div>
+
+    <p style="font-size:12px;color:var(--text3);margin-top:0.5rem;">Frete: a combinar via WhatsApp (retirada local ou envio).</p>
+  </div>
+</div>
+
+<script>
+const PRODUCTS = [
+  {
+    id: 'tws-i12',
+    name: 'Fone Bluetooth TWS i12',
+    desc: 'Bluetooth 5.0, estojo de carga, touch, Android/iOS.',
+    price: 44.90,
+    icon: '🎧',
+    photo: 'fotos/tws-i12.png',
+    variants: null,
+    cardLink: '#', // SUBSTITUA pelo link de pagamento com cartão de crédito
+    upsell: true
+  },
+  {
+    id: 'smartwatch-d20',
+    name: 'Smartwatch D20 / Y68',
+    desc: 'Monitor cardíaco/passos, notificações do WhatsApp, foto na tela.',
+    price: 69.90,
+    icon: '⌚',
+    photo: 'fotos/smartwatch-d20.png',
+    variants: ['Preto', 'Branco', 'Rosa'],
+    featured: true,
+    cardLink: '#', // SUBSTITUA pelo link de pagamento com cartão de crédito
+    upsell: true
+  },
+  {
+    id: 'kit-carregador-turbo',
+    name: "Kit Carregador Turbo 20W + Cabo (iPhone)",
+    desc: 'Fonte USB-C 20W + cabo USB-C → Lightning, carga rápida para iPhone.',
+    price: 44.90,
+    icon: '🔌',
+    photo: 'fotos/kit-carregador-turbo.png',
+    variants: null,
+    cardLink: '#', // SUBSTITUA pelo link de pagamento com cartão de crédito
+    upsell: true
+  },
+  {
+    id: 'cabo-usbc-25w',
+    name: "Cabo USB-C Turbo 25W A'gold (1m)",
+    desc: 'Tipo C, 25W turbo + dados, 1 metro, reforçado.',
+    price: 19.90,
+    icon: '🔋',
+    photo: 'fotos/cabo-usbc-25w.png',
+    variants: null,
+    cardLink: '#', // SUBSTITUA pelo link de pagamento com cartão de crédito
+    isUpsellItem: true
+  }
+];
+
+const CABLE = PRODUCTS.find(p => p.id === 'cabo-usbc-25w');
+const WHATSAPP_NUMBER = '5511992299688'; // SUBSTITUA se o número comercial da loja for diferente
+const PIX_DISCOUNT = 0.05; // 5% — ajuste aqui se quiser outro percentual
+
+function fmt(v){ return 'R$ ' + v.toFixed(2).replace('.', ','); }
+function pixPrice(v){ return v * (1 - PIX_DISCOUNT); }
+
+function loadCart(){
+  try { return JSON.parse(localStorage.getItem('cr_loja_cart')) || []; }
+  catch(e){ return []; }
+}
+function saveCart(cart){ localStorage.setItem('cr_loja_cart', JSON.stringify(cart)); }
+
+let cart = loadCart();
+
+function findCartLine(id, variant){
+  return cart.find(l => l.id === id && l.variant === (variant || null));
+}
+
+function addToCart(id, variant, qty){
+  qty = qty || 1;
+  const product = PRODUCTS.find(p => p.id === id);
+  if(!product) return;
+  let line = findCartLine(id, variant);
+  if(line){ line.qty += qty; }
+  else { cart.push({ id, name: product.name, price: product.price, icon: product.icon, variant: variant || null, qty }); }
+  saveCart(cart);
+  renderCart();
+  openDrawer();
+}
+
+function updateQty(index, delta){
+  cart[index].qty += delta;
+  if(cart[index].qty <= 0) cart.splice(index, 1);
+  saveCart(cart);
+  renderCart();
+}
+function removeLine(index){
+  cart.splice(index, 1);
+  saveCart(cart);
+  renderCart();
+}
+
+function cartTotal(){
+  return cart.reduce((sum, l) => sum + l.price * l.qty, 0);
+}
+function cartCount(){
+  return cart.reduce((sum, l) => sum + l.qty, 0);
+}
+
+function renderProducts(){
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = PRODUCTS.filter(p => !p.isUpsellItem).map(p => {
+    const variantId = 'variant-' + p.id;
+    const variantHtml = p.variants ? `
+      <div class="product-variant">
+        <label for="${variantId}">Cor</label>
+        <select class="variant-select" id="${variantId}">
+          ${p.variants.map(v => `<option value="${v}">${v}</option>`).join('')}
+        </select>
+      </div>` : '';
+    const upsellHtml = p.upsell ? `
+      <div class="upsell-chip">
+        <span>Compre junto: ${CABLE.name} (+${fmt(CABLE.price)})</span>
+        <button type="button" data-add-cable="${p.id}">Adicionar</button>
+      </div>` : '';
+    return `
+      <div class="product-card${p.featured ? ' featured' : ''}">
+        ${p.featured ? '<span class="product-badge">Destaque</span>' : ''}
+        <div class="product-photo">
+          ${p.photo
+            ? `<img src="${p.photo}" alt="${p.name}" loading="lazy">`
+            : `<span class="ph-icon">${p.icon}</span><span class="ph-label">Foto em breve</span>`}
+        </div>
+        <div class="product-body">
+          <div class="product-name">${p.name}</div>
+          <div class="product-desc">${p.desc}</div>
+          <div class="product-price">${fmt(p.price)}</div>
+          <div class="product-price-pix">ou <b>${fmt(pixPrice(p.price))}</b> no PIX (-5%)</div>
+          ${variantHtml}
+          ${upsellHtml}
+          <button type="button" class="btn-add" data-add="${p.id}">Adicionar ao carrinho</button>
+          <a class="btn-card" href="${p.cardLink}" target="_blank"><!-- SUBSTITUA pelo link de pagamento com cartão --> Pagar com Cartão</a>
+        </div>
+      </div>`;
+  }).join('');
+
+  grid.querySelectorAll('[data-add]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-add');
+      const select = document.getElementById('variant-' + id);
+      addToCart(id, select ? select.value : null, 1);
+    });
+  });
+  grid.querySelectorAll('[data-add-cable]').forEach(btn => {
+    btn.addEventListener('click', () => addToCart(CABLE.id, null, 1));
+  });
+}
+
+function renderCart(){
+  const itemsEl = document.getElementById('drawerItems');
+  const countEl = document.getElementById('cartCount');
+  const subtotalEl = document.getElementById('cartSubtotal');
+  const checkoutBtn = document.getElementById('openCheckout');
+
+  countEl.textContent = cartCount();
+  subtotalEl.textContent = fmt(cartTotal());
+  checkoutBtn.disabled = cart.length === 0;
+
+  const pixHintEl = document.getElementById('cartPixHint');
+  pixHintEl.textContent = cart.length ? `ou ${fmt(pixPrice(cartTotal()))} no PIX (-5%)` : '';
+
+  if(cart.length === 0){
+    itemsEl.innerHTML = '<p class="drawer-empty">Seu carrinho está vazio.</p>';
+    return;
+  }
+
+  itemsEl.innerHTML = cart.map((line, i) => `
+    <div class="cart-item">
+      <div class="ci-icon">${line.icon}</div>
+      <div class="ci-info">
+        <div class="ci-name">${line.name}</div>
+        ${line.variant ? `<div class="ci-variant">Cor: ${line.variant}</div>` : ''}
+        <div class="ci-controls">
+          <button class="qty-btn" data-dec="${i}">−</button>
+          <span>${line.qty}</span>
+          <button class="qty-btn" data-inc="${i}">+</button>
+          <span class="ci-price">${fmt(line.price * line.qty)}</span>
+          <button class="ci-remove" data-remove="${i}">remover</button>
+        </div>
+      </div>
+    </div>`).join('');
+
+  itemsEl.querySelectorAll('[data-inc]').forEach(b => b.addEventListener('click', () => updateQty(+b.getAttribute('data-inc'), 1)));
+  itemsEl.querySelectorAll('[data-dec]').forEach(b => b.addEventListener('click', () => updateQty(+b.getAttribute('data-dec'), -1)));
+  itemsEl.querySelectorAll('[data-remove]').forEach(b => b.addEventListener('click', () => removeLine(+b.getAttribute('data-remove'))));
+}
+
+function openDrawer(){ document.getElementById('cartDrawer').classList.add('open'); document.getElementById('overlay').classList.add('open'); }
+function closeDrawer(){ document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
+
+function buildWhatsappMessage(){
+  let msg = 'Olá! Quero fechar este pedido na Loja Cyber Records:%0A%0A';
+  cart.forEach(line => {
+    msg += `• ${line.qty}x ${line.name}${line.variant ? ' (' + line.variant + ')' : ''} — ${fmt(line.price * line.qty)}%0A`;
+  });
+  msg += `%0ATotal: ${fmt(cartTotal())} (ou ${fmt(pixPrice(cartTotal()))} no PIX, 5%25 off)%0A%0AComo posso pagar (PIX ou cartão) e combinar a entrega?`;
+  return msg;
+}
+
+function openCheckout(){
+  const cardList = document.getElementById('cardLinksList');
+  cardList.innerHTML = cart.map(line => {
+    const product = PRODUCTS.find(p => p.id === line.id);
+    return `<div class="card-item-link"><span>${line.qty}x ${line.name}${line.variant ? ' (' + line.variant + ')' : ''}</span><a href="${product.cardLink}" target="_blank">Pagar →</a></div>`;
+  }).join('');
+
+  document.getElementById('pixTotal').textContent = fmt(pixPrice(cartTotal()));
+  document.getElementById('pixTotalFull').textContent = fmt(cartTotal());
+
+  document.getElementById('waCheckoutLink').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${buildWhatsappMessage()}`;
+  document.getElementById('checkoutModal').classList.add('open');
+}
+function closeCheckout(){ document.getElementById('checkoutModal').classList.remove('open'); }
+
+document.getElementById('openCart').addEventListener('click', openDrawer);
+document.getElementById('closeCart').addEventListener('click', closeDrawer);
+document.getElementById('overlay').addEventListener('click', () => { closeDrawer(); closeCheckout(); });
+document.getElementById('openCheckout').addEventListener('click', () => { if(cart.length) openCheckout(); });
+document.getElementById('closeCheckout').addEventListener('click', closeCheckout);
+
+renderProducts();
+renderCart();
+</script>
+
+</body>
+</html>

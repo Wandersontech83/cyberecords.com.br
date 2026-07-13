@@ -24,6 +24,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .nav-links{display:flex;gap:2.5rem;list-style:none;}
 .nav-links a{font-family:var(--font-cond);font-size:13px;letter-spacing:0.1em;color:var(--text2);text-decoration:none;text-transform:uppercase;transition:color 0.2s;}
 .nav-links a:hover{color:var(--green);}
+.nav-item-dropdown{position:relative;}
+.nav-item-dropdown>a::after{content:'▾';display:inline-block;margin-left:6px;font-size:10px;}
+.nav-dropdown{position:absolute;top:calc(100% + 1rem);left:50%;transform:translateX(-50%);min-width:220px;background:var(--dark2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.5rem;list-style:none;opacity:0;visibility:hidden;transform:translateX(-50%) translateY(6px);transition:opacity 0.2s,transform 0.2s,visibility 0.2s;}
+.nav-item-dropdown:hover .nav-dropdown,.nav-item-dropdown:focus-within .nav-dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);}
+.nav-dropdown li a{display:block;padding:10px 14px;border-radius:4px;white-space:nowrap;}
+.nav-dropdown li a:hover{background:rgba(141,198,63,0.08);}
 
 /* HERO */
 #hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 2rem 4rem;overflow:hidden;}
@@ -144,6 +150,41 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
 .footer-frameworks{display:flex;gap:1.5rem;}
 .footer-fw{font-family:var(--font-cond);font-size:11px;letter-spacing:0.08em;color:var(--text3);text-transform:uppercase;}
 .footer-copy{font-family:var(--font-cond);font-size:11px;color:var(--text3);}
+.footer-extra{margin-top:0.75rem;}
+.footer-extra a{font-family:var(--font-cond);font-size:11px;letter-spacing:0.05em;color:var(--text3);text-decoration:underline;text-underline-offset:3px;}
+.footer-extra a:hover{color:var(--green);}
+
+/* SERVIÇOS — SUPORTE DE TI / ERP */
+#suporte-ti{background:var(--dark);border-top:1px solid var(--border-dim);border-bottom:1px solid var(--border-dim);}
+#erp-ia{background:var(--black);}
+.service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem;}
+.service-card{background:var(--dark2);border:1px solid var(--border-dim);border-radius:var(--radius-sm);padding:1.75rem;transition:border-color 0.25s;}
+.service-card:hover{border-color:var(--border);}
+.service-card .icon{font-size:1.6rem;color:var(--green);margin-bottom:0.75rem;display:block;}
+.service-card h3{font-family:var(--font-cond);font-size:16px;font-weight:600;color:var(--text);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.5rem;}
+.service-card p{font-size:14px;font-weight:300;color:var(--text2);line-height:1.6;}
+.module-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin-top:2.5rem;}
+.featured-block{display:flex;align-items:flex-start;gap:2rem;background:var(--dark2);border:1px solid var(--green);border-radius:var(--radius);padding:2rem;margin-top:2.5rem;position:relative;}
+.featured-badge{position:absolute;top:-13px;left:2rem;background:var(--green);color:var(--black);font-family:var(--font-cond);font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:4px 14px;border-radius:2px;}
+.featured-icon{font-size:2.5rem;color:var(--green);flex-shrink:0;}
+.featured-text h3{font-family:var(--font-display);font-size:1.6rem;color:var(--text);margin-bottom:0.75rem;}
+.featured-text p{font-size:14px;font-weight:300;color:var(--text2);line-height:1.7;}
+.sla-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:var(--border);border:1.5px solid var(--border);margin-top:2.5rem;}
+.sla-note{font-family:var(--font-cond);font-size:12px;letter-spacing:0.05em;color:var(--text3);text-align:center;margin-top:1rem;}
+.deploy-list{list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin-top:2.5rem;}
+.deploy-list li{font-size:14px;font-weight:300;color:var(--text2);padding-left:1.2rem;position:relative;line-height:1.5;}
+.deploy-list li::before{content:'▸';color:var(--green);position:absolute;left:0;font-size:12px;}
+.service-cta{margin-top:2.5rem;text-align:center;}
+.combo-card{margin-top:3rem;background:linear-gradient(135deg,rgba(141,198,63,0.08),var(--dark2));border:1.5px solid var(--green);border-radius:var(--radius);padding:2.5rem;text-align:center;}
+.combo-card .section-label{justify-content:center;}
+.combo-card h3{font-family:var(--font-display);font-size:2rem;color:var(--green);letter-spacing:0.04em;margin-bottom:0.75rem;}
+.combo-card p{font-size:15px;font-weight:300;color:var(--text2);line-height:1.7;max-width:640px;margin:0 auto 1.75rem;}
+
+/* CONTATO — SELETOR DE INTERESSE */
+.contact-select-wrap{margin-bottom:1.75rem;text-align:left;max-width:360px;margin-left:auto;margin-right:auto;}
+.contact-select-wrap label{display:block;font-family:var(--font-cond);font-size:12px;letter-spacing:0.1em;color:var(--text3);text-transform:uppercase;margin-bottom:0.5rem;}
+.contact-select{width:100%;background:var(--dark2);border:1px solid var(--border);border-radius:2px;color:var(--text);font-family:var(--font-body);font-size:14px;padding:12px 14px;}
+.contact-select:focus{outline:none;border-color:var(--green);}
 
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
@@ -157,7 +198,8 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
 @media(max-width:900px){
   nav{padding:1rem 1.5rem;}
   .nav-links{display:none;}
-  .about-grid,.pilar,.checklist,.gallery{grid-template-columns:1fr;}
+  .about-grid,.pilar,.checklist,.gallery,.service-grid,.module-grid,.sla-grid{grid-template-columns:1fr;}
+  .featured-block{flex-direction:column;}
   .pilar.reverse{direction:ltr;}
   .gallery-main{grid-column:auto;}
   .especialista-card{flex-direction:column;text-align:center;}
@@ -174,7 +216,14 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
   <div class="nav-logo">Cyber Records</div>
   <ul class="nav-links">
     <li><a href="#sobre">Sobre</a></li>
-    <li><a href="#como-funciona">Como Funciona</a></li>
+    <li class="nav-item-dropdown">
+      <a href="#como-funciona">Serviços</a>
+      <ul class="nav-dropdown">
+        <li><a href="#como-funciona">Governança</a></li>
+        <li><a href="#suporte-ti">Suporte de TI</a></li>
+        <li><a href="#erp-ia">ERP sob medida</a></li>
+      </ul>
+    </li>
     <li><a href="#plataforma">Plataforma</a></li>
     <li><a href="#contato">Contato</a></li>
   </ul>
@@ -380,6 +429,134 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
         <div class="check-icon">✓</div>
         <p class="check-text">Quer o resultado de um analista sênior de Governança sem os custos e riscos de uma contratação CLT</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUPORTE DE TI -->
+<section id="suporte-ti">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Suporte de TI · Nuvem · Cyber Proteção</div>
+      <h2 class="section-title">Tecnologia gerenciada, segura<br><span>e sem limite de horas.</span></h2>
+      <div class="green-line"></div>
+      <p class="contratacao-sub" style="max-width:640px;margin-top:-0.5rem;">Para pequenas e médias empresas que precisam de TI funcionando — sem contratar equipe interna.</p>
+    </div>
+
+    <div class="service-grid reveal">
+      <div class="service-card">
+        <span class="icon">☎</span>
+        <h3>Suporte Remoto Ilimitado</h3>
+        <p>Atendimento remoto/telefônico sem limite de horas, em horário comercial, para estações, softwares e impressoras.</p>
+      </div>
+      <div class="service-card">
+        <span class="icon">☁</span>
+        <h3>Nuvem Privada 1 TB</h3>
+        <p>Ambiente exclusivo com sincronização desktop/celular, permissões por usuário e backup.</p>
+      </div>
+      <div class="service-card">
+        <span class="icon">🗂</span>
+        <h3>Active Directory</h3>
+        <p>Gestão centralizada de usuários, senhas e políticas (GPOs).</p>
+      </div>
+      <div class="service-card">
+        <span class="icon">🔑</span>
+        <h3>Licenças &amp; Microsoft 365</h3>
+        <p>Gestão de contas, instalação e configuração.</p>
+      </div>
+      <div class="service-card">
+        <span class="icon">🛡</span>
+        <h3>Firewall &amp; Link de Internet</h3>
+        <p>Regras de segurança e acompanhamento do link.</p>
+      </div>
+      <div class="service-card">
+        <span class="icon">📈</span>
+        <h3>Projetos de Melhoria</h3>
+        <p>Roadmap contínuo, reuniões periódicas e consultoria.</p>
+      </div>
+    </div>
+
+    <div class="featured-block reveal">
+      <div class="featured-badge">Recomendado</div>
+      <span class="featured-icon">🛡</span>
+      <div class="featured-text">
+        <h3>Cyber Proteção Gerenciada</h3>
+        <p>Antivírus/EDR gerenciado · gestão de patches · backup diário do Microsoft 365 com retenção · monitoramento e remoção de ameaças · relatório mensal · health check anual.</p>
+      </div>
+    </div>
+
+    <div class="sla-grid reveal">
+      <div class="stat">
+        <div class="stat-num">24h</div>
+        <div class="stat-label">Preventivos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">8h</div>
+        <div class="stat-label">Corretivos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4h</div>
+        <div class="stat-label">Parada crítica</div>
+      </div>
+    </div>
+    <p class="sla-note">SLA = início do atendimento em horário comercial</p>
+
+    <div class="service-cta reveal">
+      <a href="#contato" class="btn-primary">Solicitar proposta personalizada →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ERP + CRM + IA SOB MEDIDA -->
+<section id="erp-ia">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Sistemas ERP + CRM + IA sob medida</div>
+      <h2 class="section-title">Um sistema de gestão feito para<br><span>a SUA operação — com IA dentro.</span></h2>
+      <div class="green-line"></div>
+      <p class="contratacao-sub" style="max-width:680px;margin-top:-0.5rem;">Plataforma web sob medida que unifica vendas, estoque, clientes, rotas e inteligência artificial — o que planilha e sistema genérico não entregam.</p>
+    </div>
+
+    <div class="module-grid reveal">
+      <div class="check-item"><div class="check-icon">✓</div><p class="check-text">Meu Dia — resumo diário e follow-ups</p></div>
+      <div class="check-item"><div class="check-icon">✓</div><p class="check-text">Dashboard operacional</p></div>
+      <div class="check-item"><div class="check-icon">✓</div><p class="check-text">Painel Executivo — KPIs e finanças</p></div>
+      <div class="check-item"><div class="check-icon">✓</div><p class="check-text">Alertas Inteligentes</p></div>
+      <div class="check-item"><div class="check-icon">✓</div><p class="check-text">Estoque com nível crítico</p></div>
+      <div class="check-item"><div class="check-icon">✓</div><p class="check-text">Catálogo de Produtos</p></div>
+      <div class="check-item"><div class="check-icon">✓</div><p class="check-text">Gestão de Clientes</p></div>
+      <div class="check-item"><div class="check-icon">✓</div><p class="check-text">Fornecedores e importações</p></div>
+      <div class="check-item"><div class="check-icon">✓</div><p class="check-text">Consulta Cruzada</p></div>
+      <div class="check-item"><div class="check-icon">✓</div><p class="check-text">Mapa de Clientes + Rotas</p></div>
+      <div class="check-item"><div class="check-icon">✓</div><p class="check-text">Agenda de visitas</p></div>
+      <div class="check-item"><div class="check-icon">✓</div><p class="check-text">Pipeline de Negócios com forecast</p></div>
+    </div>
+
+    <div class="featured-block reveal">
+      <span class="featured-icon">🤖</span>
+      <div class="featured-text">
+        <h3>NEXUS Agent</h3>
+        <p>O mesmo assistente de IA do Cyber Records Hub, integrado ao seu ERP: responde sobre clientes, estoque e vendas em linguagem natural, com integração WhatsApp.</p>
+      </div>
+    </div>
+
+    <ul class="deploy-list reveal">
+      <li>Publicação em nuvem privada</li>
+      <li>Migração de dados e cadastros</li>
+      <li>Perfis de acesso</li>
+      <li>Treinamento + 30 dias de acompanhamento assistido</li>
+    </ul>
+    <p class="sla-note">Investimento: implantação única + licença mensal SaaS · dados 100% do cliente</p>
+
+    <div class="service-cta reveal">
+      <a href="#contato" class="btn-primary">Solicitar proposta personalizada →</a>
+    </div>
+
+    <div class="combo-card reveal">
+      <div class="section-label">Fechamento</div>
+      <h3>COMBO CYBER RECORDS TOTAL</h3>
+      <p>Suporte de TI ilimitado + Nuvem Privada + Cyber Proteção + ERP com IA + Governança — tudo em um único contrato mensal, com condição especial.</p>
+      <a href="#contato" class="btn-primary">Quero uma proposta do combo →</a>
     </div>
   </div>
 </section>
@@ -736,13 +913,23 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
       <p class="contact-sub">
         Fale com a gente. Explicamos como funciona, entendemos sua necessidade e apresentamos uma proposta sob medida para o seu negócio.
       </p>
+      <div class="contact-select-wrap">
+        <label for="interesse">Tenho interesse em:</label>
+        <select id="interesse" class="contact-select">
+          <option value="Governança de TI &amp; IA" data-href="">Governança de TI &amp; IA</option>
+          <option value="Suporte de TI">Suporte de TI</option>
+          <option value="ERP sob medida">ERP sob medida</option>
+          <option value="Combo Cyber Records Total">Combo Cyber Records Total</option>
+          <option value="Loja de acessórios" data-href="loja/">Loja de acessórios</option>
+        </select>
+      </div>
       <div class="contact-links">
-        <a href="mailto:contato@cyberecords.com.br" class="contact-email-wrap">
+        <a href="mailto:contato@cyberecords.com.br" id="contact-email-link" class="contact-email-wrap">
           <span style="color:var(--green);font-size:18px;">✉</span>
           <span class="contact-email">contato@cyberecords.com.br</span>
         </a>
         <!-- SUBSTITUA o link do WhatsApp pelo número real -->
-        <a href="https://wa.me/5511992299688" target="_blank" class="contact-whatsapp">
+        <a href="https://wa.me/5511992299688" id="contact-whatsapp-link" target="_blank" class="contact-whatsapp">
           <span style="color:#25D366;font-size:18px;">💬</span>
           <span>Falar no WhatsApp</span>
         </a>
@@ -764,7 +951,9 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
       <span class="footer-fw">NIST</span>
       <span class="footer-fw">LGPD</span>
     </div>
-    <div class="footer-copy">© 2025 Cyber Records. Todos os direitos reservados.</div>
+    <div class="footer-copy">© 2025 Cyber Records. Todos os direitos reservados.
+      <div class="footer-extra"><a href="loja/">Loja de acessórios</a></div>
+    </div>
   </div>
 </footer>
 
@@ -775,6 +964,25 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); } });
 }, { threshold: 0.12 });
 revealEls.forEach(el => observer.observe(el));
+
+// Seletor de interesse — atualiza mailto/WhatsApp com o assunto escolhido
+const interesseSelect = document.getElementById('interesse');
+const emailLink = document.getElementById('contact-email-link');
+const whatsappLink = document.getElementById('contact-whatsapp-link');
+if (interesseSelect && emailLink && whatsappLink) {
+  const baseWhatsapp = 'https://wa.me/5511992299688';
+  interesseSelect.addEventListener('change', () => {
+    const opt = interesseSelect.selectedOptions[0];
+    const interesse = opt.value;
+    const lojaHref = opt.getAttribute('data-href');
+    if (lojaHref) {
+      window.location.href = lojaHref;
+      return;
+    }
+    emailLink.href = 'mailto:contato@cyberecords.com.br?subject=' + encodeURIComponent('Interesse: ' + interesse);
+    whatsappLink.href = baseWhatsapp + '?text=' + encodeURIComponent('Olá! Tenho interesse em ' + interesse + '.');
+  });
+}
 
 // Accordion (mantido para compatibilidade futura)
 document.querySelectorAll('.acc-header').forEach(h => {
