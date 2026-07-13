@@ -3,8 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loja Cyber Records — Acessórios de Tecnologia</title>
+<title>Cyber Records Store — Equipamentos & Acessórios</title>
 <meta name="description" content="Fone Bluetooth, smartwatch, carregadores e cabos turbo com entrega rápida. Pague por PIX ou cartão de crédito, ou combine direto pelo WhatsApp.">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="../assets/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cyber Records Store — Equipamentos & Acessórios">
+<meta property="og:description" content="Acessórios de tecnologia selecionados pelo ecossistema Cyber Records. Pague por PIX ou cartão de crédito.">
+<meta property="og:image" content="https://cyberecords.com.br/assets/logo.png">
+<meta property="og:url" content="https://cyberecords.com.br/loja/">
+<meta name="twitter:card" content="summary">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -21,7 +30,9 @@ a{color:inherit;}
 
 /* HEADER */
 header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:rgba(247,246,241,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
-.brand{display:flex;flex-direction:column;line-height:1.1;}
+.brand{display:flex;align-items:center;gap:10px;line-height:1.1;}
+.brand img{width:36px;height:36px;flex-shrink:0;}
+.brand-text{display:flex;flex-direction:column;}
 .brand-name{font-family:var(--font-cond);font-size:16px;font-weight:700;letter-spacing:0.04em;color:var(--black);text-decoration:none;}
 .brand-sub{font-family:var(--font-cond);font-size:11px;letter-spacing:0.15em;color:var(--green-dark);text-transform:uppercase;}
 .cart-btn{position:relative;display:flex;align-items:center;gap:8px;background:var(--black);color:#fff;border:none;border-radius:999px;padding:10px 18px;font-family:var(--font-cond);font-size:13px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;}
@@ -134,8 +145,11 @@ footer a:hover{color:var(--green);}
 
 <header>
   <a href="../" class="brand" style="text-decoration:none;">
-    <span class="brand-name">Cyber Records</span>
-    <span class="brand-sub">Loja de Acessórios</span>
+    <img src="../assets/logo.png" alt="Cyber Records">
+    <span class="brand-text">
+      <span class="brand-name">Cyber Records</span>
+      <span class="brand-sub">Store · Equipamentos &amp; Acessórios</span>
+    </span>
   </a>
   <button class="cart-btn" id="openCart">🛒 Carrinho<span class="cart-badge" id="cartCount">0</span></button>
 </header>
@@ -143,7 +157,8 @@ footer a:hover{color:var(--green);}
 <div class="store-hero">
   <h1>Acessórios de tecnologia <span>prontos para usar</span></h1>
   <p>Fone Bluetooth, smartwatch, carregadores e cabos turbo com entrega rápida. Pague por PIX ou cartão de crédito, ou combine direto pelo WhatsApp.</p>
-  <a href="../" class="back-link">← Voltar para Cyber Records (Governança de TI &amp; IA)</a>
+  <p style="font-size:13px;color:var(--text3);margin-top:1rem;max-width:600px;margin-left:auto;margin-right:auto;">A Cyber Records Store integra nosso ecossistema de tecnologia, oferecendo equipamentos e acessórios cuidadosamente selecionados para empresas, profissionais de TI e consumidores que buscam qualidade, desempenho e suporte especializado.</p>
+  <a href="../" class="back-link">← Voltar para Cyber Records (Tecnologia Empresarial Completa)</a>
 </div>
 
 <section>
@@ -158,7 +173,7 @@ footer a:hover{color:var(--green);}
   <div class="container">
     <div class="trust-bar">
       <div class="trust-item">
-        <div class="t-title">Loja Cyber Records</div>
+        <div class="t-title">Cyber Records Store</div>
         <!-- SUBSTITUA pelo CNPJ real -->
         <div class="t-desc">CNPJ 00.000.000/0000-00 (placeholder)</div>
       </div>
@@ -210,7 +225,7 @@ footer a:hover{color:var(--green);}
       <!-- SUBSTITUA @cyberecords pelo perfil real -->
       <a href="https://instagram.com/cyberecords" target="_blank">📷 @cyberecords</a>
     </div>
-    <div class="footer-copy">© 2025 Cyber Records — Loja de Acessórios. Fotos meramente ilustrativas.</div>
+    <div class="footer-copy">© 2025 Cyber Records Store — Equipamentos &amp; Acessórios. Fotos meramente ilustrativas.</div>
   </div>
 </footer>
 
@@ -451,7 +466,7 @@ function openDrawer(){ document.getElementById('cartDrawer').classList.add('open
 function closeDrawer(){ document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
 
 function buildWhatsappMessage(){
-  let msg = 'Olá! Quero fechar este pedido na Loja Cyber Records:%0A%0A';
+  let msg = 'Olá! Quero fechar este pedido na Cyber Records Store:%0A%0A';
   cart.forEach(line => {
     msg += `• ${line.qty}x ${line.name}${line.variant ? ' (' + line.variant + ')' : ''} — ${fmt(line.price * line.qty)}%0A`;
   });
