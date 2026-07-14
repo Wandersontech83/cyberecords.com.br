@@ -51,6 +51,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .hero-title{font-family:var(--font-display);font-size:clamp(2.8rem,6vw,5rem);line-height:1;color:var(--text);margin-bottom:1.5rem;animation:fadeUp 1s ease 0.25s both;}
 .hero-title span{color:var(--green);}
 .hero-pillars{font-family:var(--font-cond);font-size:clamp(12px,1.6vw,15px);font-weight:600;letter-spacing:0.06em;color:var(--green);text-transform:uppercase;max-width:680px;margin:0 auto 1.5rem;line-height:1.8;animation:fadeUp 1s ease 0.3s both;}
+.hero-differentiator{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--text2);max-width:600px;margin:0 auto 1.5rem;animation:fadeUp 1s ease 0.32s both;}
+.hero-differentiator strong{color:var(--green);font-weight:700;}
 .hero-sub{font-size:clamp(15px,2vw,18px);font-weight:300;color:var(--text2);line-height:1.7;max-width:600px;margin:0 auto 2.5rem;animation:fadeUp 1s ease 0.35s both;}
 .hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeUp 1s ease 0.45s both;}
 .btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 36px;background:var(--green);border:1px solid var(--green);border-radius:2px;color:var(--black);font-family:var(--font-cond);font-size:14px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:background 0.25s,opacity 0.25s;}
@@ -185,6 +187,21 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
 .service-card h3{font-family:var(--font-cond);font-size:16px;font-weight:600;color:var(--text);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.5rem;}
 .service-card p{font-size:14px;font-weight:300;color:var(--text2);line-height:1.6;}
 .module-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin-top:2.5rem;}
+.erp-gallery{margin-top:2.5rem;}
+.erp-gallery-tabs{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem;}
+.erp-gallery-tab{background:var(--dark2);border:1px solid var(--border-dim);border-radius:999px;padding:8px 16px;font-family:var(--font-cond);font-size:12px;font-weight:600;letter-spacing:0.04em;color:var(--text2);text-transform:uppercase;cursor:pointer;transition:border-color 0.2s,color 0.2s,background 0.2s;}
+.erp-gallery-tab:hover{border-color:var(--border);}
+.erp-gallery-tab.active{background:rgba(141,198,63,0.12);border-color:var(--green);color:var(--green);}
+.browser-frame{background:var(--dark2);border:1px solid var(--border-dim);border-radius:var(--radius-sm);overflow:hidden;}
+.browser-frame-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;background:var(--dark);border-bottom:1px solid var(--border-dim);}
+.browser-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.browser-dot.red{background:#FF5F56;}
+.browser-dot.yellow{background:#FFBD2E;}
+.browser-dot.green{background:#27C93F;}
+.browser-frame-url{margin-left:10px;font-family:'Courier New',monospace;font-size:11px;color:var(--text3);letter-spacing:0.02em;}
+.browser-frame-img-wrap{aspect-ratio:1366/577;overflow:hidden;background:var(--black);}
+.browser-frame-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;}
+.erp-gallery-caption{margin-top:0.85rem;font-size:13px;color:var(--text2);font-weight:300;text-align:center;line-height:1.6;}
 .featured-block{display:flex;align-items:flex-start;gap:2rem;background:var(--dark2);border:1px solid var(--green);border-radius:var(--radius);padding:2rem;margin-top:2.5rem;position:relative;}
 .featured-badge{position:absolute;top:-13px;left:2rem;background:var(--green);color:var(--black);font-family:var(--font-cond);font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:4px 14px;border-radius:2px;}
 .featured-icon{font-size:2.5rem;color:var(--green);flex-shrink:0;}
@@ -192,6 +209,25 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
 .featured-text p{font-size:14px;font-weight:300;color:var(--text2);line-height:1.7;}
 .sla-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:var(--border);border:1.5px solid var(--border);margin-top:2.5rem;}
 .sla-note{font-family:var(--font-cond);font-size:12px;letter-spacing:0.05em;color:var(--text3);text-align:center;margin-top:1rem;}
+.tickets-panel{background:var(--dark2);border:1px solid var(--border-dim);border-radius:var(--radius);padding:1.5rem;margin-top:2.5rem;}
+.tickets-panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border-dim);flex-wrap:wrap;gap:0.5rem;}
+.tickets-panel-title{font-family:var(--font-cond);font-size:12px;letter-spacing:0.15em;color:var(--text3);text-transform:uppercase;}
+.tickets-panel-live{display:flex;align-items:center;gap:6px;font-family:var(--font-cond);font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:0.1em;}
+.tickets-panel-live::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulseDot 1.5s ease-in-out infinite;}
+@keyframes pulseDot{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.ticket-row{display:grid;grid-template-columns:auto 1fr auto auto;gap:1rem;align-items:center;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.ticket-row:last-child{border-bottom:none;}
+.ticket-priority{font-family:var(--font-cond);font-size:11px;font-weight:700;letter-spacing:0.05em;padding:3px 9px;border-radius:2px;text-transform:uppercase;white-space:nowrap;}
+.ticket-priority.p1{background:rgba(244,67,54,0.15);color:#F44336;}
+.ticket-priority.p2{background:rgba(255,152,0,0.15);color:#FF9800;}
+.ticket-priority.p3{background:rgba(141,198,63,0.15);color:var(--green);}
+.ticket-desc{font-size:13px;color:var(--text);}
+.ticket-desc span{display:block;font-size:11px;color:var(--text3);margin-top:2px;}
+.ticket-sla{font-family:'Courier New',monospace;font-size:12px;color:var(--text2);white-space:nowrap;}
+.ticket-status{font-family:var(--font-cond);font-size:10px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;padding:3px 9px;border-radius:2px;white-space:nowrap;}
+.ticket-status.aberto{background:rgba(244,67,54,0.1);color:#F44336;}
+.ticket-status.andamento{background:rgba(255,152,0,0.1);color:#FF9800;}
+.ticket-status.resolvido{background:rgba(141,198,63,0.1);color:var(--green);}
 .deploy-list{list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin-top:2.5rem;}
 .deploy-list li{font-size:14px;font-weight:300;color:var(--text2);padding-left:1.2rem;position:relative;line-height:1.5;}
 .deploy-list li::before{content:'▸';color:var(--green);position:absolute;left:0;font-size:12px;}
@@ -233,6 +269,8 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
   .especialista-creds{justify-content:center;}
   footer .footer-inner{flex-direction:column;gap:1rem;text-align:center;}
   .footer-frameworks{flex-wrap:wrap;justify-content:center;}
+  .ticket-row{grid-template-columns:1fr;gap:0.4rem;text-align:left;}
+  .ticket-sla,.ticket-status{justify-self:start;}
 }
 </style>
 </head>
@@ -271,6 +309,9 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
     <p class="hero-pillars">
       ERP Sob Medida · Inteligência Artificial · Governança de TI · Suporte Especializado · Equipamentos &amp; Acessórios
     </p>
+    <div style="text-align:center;">
+      <p class="hero-differentiator">★ <strong>Primeira empresa no Brasil</strong> a entregar Governança de TI &amp; IA como serviço gerenciado</p>
+    </div>
     <p class="hero-sub">
       Desenvolvemos soluções inteligentes para empresas de todos os portes. Criamos sistemas personalizados, implementamos Governança de TI, automatizamos processos com Inteligência Artificial, prestamos suporte especializado e fornecemos equipamentos para impulsionar a transformação digital do seu negócio.<br>
       Tudo integrado em uma única empresa.
@@ -475,7 +516,15 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
     <div class="checklist reveal">
       <div class="check-item">
         <div class="check-icon">✓</div>
-        <p class="check-text">Sua empresa não tem um setor estruturado de Governança de TI e precisa começar do zero</p>
+        <p class="check-text">Sua empresa ainda roda no papel ou em planilhas soltas e precisa de um sistema próprio, feito sob medida</p>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">✓</div>
+        <p class="check-text">Você não tem uma equipe de TI interna e precisa de suporte especializado sempre que algo trava</p>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">✓</div>
+        <p class="check-text">Quer automatizar processos e atendimento com Inteligência Artificial, mas não sabe por onde começar</p>
       </div>
       <div class="check-item">
         <div class="check-icon">✓</div>
@@ -483,19 +532,11 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
       </div>
       <div class="check-item">
         <div class="check-icon">✓</div>
-        <p class="check-text">Você usa ou planeja usar IA e precisa de governança e auditoria com ISO 42001 e NIST AI RMF</p>
+        <p class="check-text">Você quer visibilidade real sobre riscos, contratos, SLAs e a saúde da sua TI em tempo real</p>
       </div>
       <div class="check-item">
         <div class="check-icon">✓</div>
-        <p class="check-text">Você quer visibilidade real sobre riscos, contratos, SLAs e saúde da TI em tempo real</p>
-      </div>
-      <div class="check-item">
-        <div class="check-icon">✓</div>
-        <p class="check-text">Já contratou consultoria pontual, mas os problemas voltam por falta de acompanhamento contínuo</p>
-      </div>
-      <div class="check-item">
-        <div class="check-icon">✓</div>
-        <p class="check-text">Quer o resultado de um analista sênior de Governança sem os custos e riscos de uma contratação CLT</p>
+        <p class="check-text">Quer todas essas soluções em uma única empresa, sem contratar equipe própria para cada uma delas</p>
       </div>
     </div>
   </div>
@@ -569,6 +610,37 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
     </div>
     <p class="sla-note">SLA = início do atendimento em horário comercial</p>
 
+    <div class="tickets-panel reveal">
+      <div class="tickets-panel-header">
+        <span class="tickets-panel-title">Painel de Chamados — Service Desk</span>
+        <span class="tickets-panel-live">Ao vivo</span>
+      </div>
+      <div class="ticket-row">
+        <span class="ticket-priority p1">P1</span>
+        <span class="ticket-desc">Servidor de arquivos inacessível<span>Matriz · Infraestrutura</span></span>
+        <span class="ticket-sla">SLA 4h · 2h14min restantes</span>
+        <span class="ticket-status andamento">Em atendimento</span>
+      </div>
+      <div class="ticket-row">
+        <span class="ticket-priority p2">P2</span>
+        <span class="ticket-desc">Impressora fiscal sem resposta<span>Filial Sul · Hardware</span></span>
+        <span class="ticket-sla">SLA 8h · 5h40min restantes</span>
+        <span class="ticket-status aberto">Aberto</span>
+      </div>
+      <div class="ticket-row">
+        <span class="ticket-priority p2">P2</span>
+        <span class="ticket-desc">Lentidão na rede Wi-Fi — 3º andar<span>Matriz · Redes</span></span>
+        <span class="ticket-sla">SLA 8h · 1h05min restantes</span>
+        <span class="ticket-status andamento">Em atendimento</span>
+      </div>
+      <div class="ticket-row">
+        <span class="ticket-priority p3">P3</span>
+        <span class="ticket-desc">Instalação de licença Microsoft 365<span>Setor Financeiro · Software</span></span>
+        <span class="ticket-sla">SLA 24h · 18h restantes</span>
+        <span class="ticket-status resolvido">Resolvido</span>
+      </div>
+    </div>
+
     <div class="service-cta reveal">
       <a href="#contato" class="btn-primary">Solicitar proposta personalizada →</a>
     </div>
@@ -600,11 +672,37 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
       <div class="check-item"><div class="check-icon">✓</div><p class="check-text">Pipeline de Negócios com forecast</p></div>
     </div>
 
+    <div class="erp-gallery reveal">
+      <div class="erp-gallery-tabs" id="erpGalleryTabs">
+        <button type="button" class="erp-gallery-tab active" data-target="meu-dia">Meu Dia</button>
+        <button type="button" class="erp-gallery-tab" data-target="painel-executivo">Painel Executivo</button>
+        <button type="button" class="erp-gallery-tab" data-target="pipeline">Pipeline de Negócios</button>
+        <button type="button" class="erp-gallery-tab" data-target="mapa-clientes">Mapa de Clientes</button>
+      </div>
+      <div class="browser-frame">
+        <div class="browser-frame-bar">
+          <span class="browser-dot red"></span><span class="browser-dot yellow"></span><span class="browser-dot green"></span>
+          <span class="browser-frame-url" id="erpGalleryUrl">app.cybererp.com.br/meu-dia</span>
+        </div>
+        <div class="browser-frame-img-wrap">
+          <img id="erpGalleryImg" src="assets/erp/ERP_tela_meu_dia.jpg" alt="Cyber ERP — Meu Dia">
+        </div>
+      </div>
+      <p class="erp-gallery-caption" id="erpGalleryCaption">Meu Dia: resumo diário, follow-ups vencidos e pipeline urgente — tudo em uma tela ao abrir o sistema.</p>
+    </div>
+
     <div class="featured-block reveal">
       <span class="featured-icon">🤖</span>
       <div class="featured-text">
         <h3>NEXUS Agent</h3>
-        <p>O mesmo assistente de IA do Cyber Records Hub, integrado ao seu ERP: responde sobre clientes, estoque e vendas em linguagem natural, com integração WhatsApp.</p>
+        <p>O mesmo agente de IA que audita sua Governança também atende o seu Cyber ERP: responde sobre clientes, estoque, vendas e follow-ups em linguagem natural, com integração WhatsApp.</p>
+        <p style="margin-top:0.75rem;">Exemplos de automação: relatórios executivos gerados e enviados automaticamente, alertas de follow-up vencido direto no WhatsApp, e fluxos no N8N conectando o ERP a outros sistemas da empresa.</p>
+        <div style="background:#0d0d0b;border:1px solid rgba(141,198,63,0.15);border-radius:6px;padding:0.85rem 1rem;margin-top:1rem;font-family:'Courier New',monospace;">
+          <div style="font-size:9px;color:#666;text-transform:uppercase;margin-bottom:0.4rem;">VOCÊ</div>
+          <div style="font-size:12px;color:#fff;margin-bottom:0.6rem;">Quanto vendemos este mês?</div>
+          <div style="font-size:9px;color:#8DC63F;text-transform:uppercase;margin-bottom:0.4rem;">NEXUS</div>
+          <div style="font-size:12px;color:#ccc;line-height:1.6;">Faturamento de julho: <span style="color:#8DC63F;">R$ 114.688</span> em 2 pedidos fechados. Pipeline ativo: R$ 790.000, com R$ 492.350 em forecast ponderado. Quer que eu detalhe por vendedor ou região?</div>
+        </div>
       </div>
     </div>
 
@@ -964,7 +1062,7 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
       </p>
       <a href="#contato" class="btn-primary">Solicitar proposta personalizada →</a>
       <p class="contratacao-note">
-        Atendemos empresas de médio porte com 50 a 500 colaboradores<br>
+        Atendemos de pequenas empresas a grandes operações — o escopo se ajusta ao seu porte<br>
         Setores prioritários: saúde · varejo · indústria · serviços financeiros
       </p>
     </div>
@@ -976,7 +1074,7 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
   <div class="container">
     <div class="contact-inner reveal">
       <div class="section-label">Contato</div>
-      <h2 class="section-title">Pronto para <span>governar sua TI</span> de verdade?</h2>
+      <h2 class="section-title">Pronto para <span>transformar a tecnologia</span> da sua empresa?</h2>
       <div class="green-line" style="margin:0 auto 2rem;"></div>
       <p class="contact-sub">
         Fale com a gente. Explicamos como funciona, entendemos sua necessidade e apresentamos uma proposta sob medida para o seu negócio.
@@ -1045,6 +1143,31 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); } });
 }, { threshold: 0.12 });
 revealEls.forEach(el => observer.observe(el));
+
+// Galeria de telas do ERP
+const ERP_SCREENS = {
+  'meu-dia': { img: 'assets/erp/ERP_tela_meu_dia.jpg', url: 'app.cybererp.com.br/meu-dia', caption: 'Meu Dia: resumo diário, follow-ups vencidos e pipeline urgente — tudo em uma tela ao abrir o sistema.' },
+  'painel-executivo': { img: 'assets/erp/ERP_tela_painel_executivo.jpg', url: 'app.cybererp.com.br/painel-executivo', caption: 'Painel Executivo: faturamento, lucro, margem e KPIs consolidados para a diretoria, em tempo real.' },
+  'pipeline': { img: 'assets/erp/ERP_tela_pipeline.jpg', url: 'app.cybererp.com.br/pipeline', caption: 'Pipeline de Negócios: funil com forecast ponderado por etapa — sem depender de planilha.' },
+  'mapa-clientes': { img: 'assets/erp/ERP_tela_mapa_clientes.jpg', url: 'app.cybererp.com.br/mapa-clientes', caption: 'Mapa de Clientes: heatmap por região, com planejador de rotas integrado.' }
+};
+const erpTabs = document.querySelectorAll('.erp-gallery-tab');
+if (erpTabs.length) {
+  const erpImg = document.getElementById('erpGalleryImg');
+  const erpUrl = document.getElementById('erpGalleryUrl');
+  const erpCaption = document.getElementById('erpGalleryCaption');
+  erpTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      erpTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const data = ERP_SCREENS[tab.getAttribute('data-target')];
+      erpImg.src = data.img;
+      erpImg.alt = 'Cyber ERP — ' + tab.textContent;
+      erpUrl.textContent = data.url;
+      erpCaption.textContent = data.caption;
+    });
+  });
+}
 
 // Seletor de solução — atualiza mailto/WhatsApp com o assunto escolhido
 const interesseRadios = document.querySelectorAll('input[name="interesse"]');
