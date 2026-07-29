@@ -498,19 +498,20 @@ footer{background:var(--black);border-top:1px solid rgba(141,198,63,0.12);paddin
       </div>
       <div class="about-stats">
         <div class="stat">
-          <div class="stat-num" data-count="22" data-suffix="">0</div>
+          <!-- valor final no HTML → SEO/print correto; JS anima a partir do scroll -->
+          <div class="stat-num" data-count="22" data-suffix="">22</div>
           <div class="stat-label">Módulos ativos</div>
         </div>
         <div class="stat">
-          <div class="stat-num" data-count="8" data-suffix="">0</div>
+          <div class="stat-num" data-count="8" data-suffix="">8</div>
           <div class="stat-label">Frameworks auditados</div>
         </div>
         <div class="stat">
-          <div class="stat-num" data-count="24" data-suffix="h">0h</div>
+          <div class="stat-num" data-count="24" data-suffix="h">24h</div>
           <div class="stat-label">Tempo de resposta</div>
         </div>
         <div class="stat">
-          <div class="stat-num" data-count="100" data-suffix="%">0%</div>
+          <div class="stat-num" data-count="100" data-suffix="%">100%</div>
           <div class="stat-label">Gerenciado</div>
         </div>
       </div>
@@ -1477,21 +1478,36 @@ window.addEventListener('load', function() {
 })();
 
 /* ── 4. COUNTUP NOS STATS ──────────────────────────── */
+/* FIX: HTML já exibe o valor final (SEO/print seguro).
+   O Observer reseta para 0 e anima SOMENTE quando o
+   elemento entra no viewport. Flag data-animated evita
+   re-disparo em resize/scroll repetido.                */
 (function() {
   const els = document.querySelectorAll('.stat-num[data-count]');
   if (!els.length) return;
 
+  /* Fallback: se IntersectionObserver não existir,
+     mantém os valores finais estáticos no HTML.        */
+  if (!('IntersectionObserver' in window)) return;
+
   const obs = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (!entry.isIntersecting) return;
-      const el      = entry.target;
-      const target  = parseInt(el.dataset.count, 10);
-      const suffix  = el.dataset.suffix || '';
-      const dur     = 1400;
-      const step    = 16;
-      const steps   = dur / step;
-      let cur = 0;
+      const el = entry.target;
+      if (el.dataset.animated) return;   /* já animou, não repete */
+      el.dataset.animated = '1';
+
+      const target = parseInt(el.dataset.count, 10);
+      const suffix = el.dataset.suffix || '';
+      const dur    = 1400;
+      const fps    = 60;
+      const steps  = Math.round(dur / (1000 / fps));
+      let   cur    = 0;
+
+      /* Reseta para 0 só aqui — depois do first paint */
+      el.textContent = '0' + suffix;
       el.classList.add('counting');
+
       const iv = setInterval(function() {
         cur = Math.min(cur + Math.ceil(target / steps), target);
         el.textContent = cur + suffix;
@@ -1499,10 +1515,11 @@ window.addEventListener('load', function() {
           clearInterval(iv);
           el.classList.remove('counting');
         }
-      }, step);
+      }, 1000 / fps);
+
       obs.unobserve(el);
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.6, rootMargin: '0px 0px -40px 0px' });
 
   els.forEach(function(el) { obs.observe(el); });
 })();
