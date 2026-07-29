@@ -83,8 +83,12 @@ section{position:relative;z-index:1;padding:6rem 2rem;}
 .section-title span{color:var(--green);text-shadow:0 0 24px rgba(141,198,63,0.3);}
 .green-line{width:48px;height:2px;background:var(--green);margin-bottom:2rem;box-shadow:0 0 8px rgba(141,198,63,0.6);}
 
+/* fundos semi-transparentes para grid+partículas aparecerem */
+#sobre,#solucoes,#suporte-ti,#para-quem,#contratacao{background:rgba(10,12,8,0.78)!important;}
+#como-funciona,#erp-ia,#plataforma,#contato{background:rgba(8,10,6,0.65)!important;}
+
 /* SOBRE */
-#sobre{background:var(--dark);border-top:1px solid var(--border-dim);border-bottom:1px solid var(--border-dim);}
+#sobre{border-top:1px solid var(--border-dim);border-bottom:1px solid var(--border-dim);}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
 .about-text p{font-size:15px;font-weight:300;color:var(--text2);line-height:1.8;margin-bottom:1.25rem;}
 .about-text strong{color:var(--text);font-weight:500;}
@@ -281,8 +285,8 @@ footer{background:var(--black);border-top:1px solid rgba(141,198,63,0.12);paddin
 @keyframes scrollDot{0%{opacity:1;bottom:2.2rem;}80%{opacity:0;}100%{opacity:0;bottom:1.2rem;}}
 @keyframes shimmer{to{left:200%;}}
 
-/* Canvas de partículas do hero */
-#hero-particles{position:absolute;inset:0;z-index:0;pointer-events:none;display:block;}
+/* Canvas de partículas — FIXO, cobre a página toda */
+#hero-particles{position:fixed;inset:0;z-index:2;pointer-events:none;display:block;}
 
 /* Logo com pulso verde */
 .hero-logo{animation:fadeUp 1s ease both,logoPulse 3.5s ease-in-out 1.2s infinite!important;}
@@ -338,8 +342,10 @@ footer{background:var(--black);border-top:1px solid rgba(141,198,63,0.12);paddin
 </head>
 <body>
 
-<!-- GRID ANIMADO — fundo de toda a página (pegada Store) -->
+<!-- GRID ANIMADO — fundo de toda a página -->
 <div class="grid-bg"></div>
+<!-- PARTÍCULAS — fixas, cobrem página toda -->
+<canvas id="hero-particles"></canvas>
 
 <!-- NAV -->
 <nav>
@@ -363,7 +369,6 @@ footer{background:var(--black);border-top:1px solid rgba(141,198,63,0.12);paddin
 
 <!-- HERO -->
 <section id="hero">
-  <canvas id="hero-particles"></canvas>
   <div class="hero-glow"></div>
   <div class="hero-content">
     <img class="hero-logo" src="assets/logo.png" alt="Cyber Records">
