@@ -15,6 +15,9 @@
 <meta property="og:url" content="https://cyberecords.com.br">
 <meta name="twitter:card" content="summary">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.45/dist/lenis.min.js" defer></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -256,6 +259,51 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
 @keyframes scrollAnim{0%,100%{opacity:1;}50%{opacity:0.2;}}
 
+/* ── MODERNIZAÇÃO ─────────────────────────────────────── */
+/* @property para borda giratória do badge */
+@property --a{syntax:'<angle>';inherits:false;initial-value:0deg;}
+@keyframes border-spin{to{--a:360deg;}}
+@keyframes logoPulse{0%,100%{filter:drop-shadow(0 0 10px rgba(141,198,63,.35));}50%{filter:drop-shadow(0 0 30px rgba(141,198,63,.8));}}
+@keyframes scrollDot{0%{opacity:1;bottom:2.2rem;}80%{opacity:0;}100%{opacity:0;bottom:1.2rem;}}
+@keyframes shimmer{to{left:200%;}}
+
+/* Canvas de partículas do hero */
+#hero-particles{position:absolute;inset:0;z-index:0;pointer-events:none;display:block;}
+
+/* Logo com pulso verde */
+.hero-logo{animation:fadeUp 1s ease both,logoPulse 3.5s ease-in-out 1.2s infinite!important;}
+
+/* Badge com borda girando */
+.hero-badge{position:relative;}
+.hero-badge::before{content:'';position:absolute;inset:-1px;padding:1px;border-radius:2px;background:conic-gradient(from var(--a),transparent 70%,var(--green) 80%,transparent 95%);animation:border-spin 3s linear infinite;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
+
+/* Scroll dot pulsante */
+.scroll-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green);position:absolute;left:50%;transform:translateX(-50%);animation:scrollDot 2s ease-in-out infinite;}
+
+/* Brilho correndo no botão primário */
+.btn-primary{overflow:hidden;position:relative;}
+.btn-primary::after{content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);animation:shimmer 2.6s linear 1.5s infinite;pointer-events:none;}
+
+/* Botão magnético */
+.mag-wrap{display:inline-block;position:relative;}
+
+/* Perspectiva 3-D nos pillar cards */
+.pillars-grid{perspective:900px;}
+.pillar-card{transition:border-color .25s,box-shadow .25s,transform .18s;transform-style:preserve-3d;will-change:transform;}
+.pillar-card:hover{border-color:var(--green);box-shadow:0 8px 28px rgba(141,198,63,.18);}
+
+/* Pilar rows 3D */
+.pilar{transition:border-color .3s,box-shadow .3s,transform .2s;will-change:transform;}
+.pilar:hover{border-color:var(--border);box-shadow:0 12px 40px rgba(141,198,63,.08);}
+
+/* Word-split para animação GSAP */
+.hero-word{display:inline-block;overflow:hidden;vertical-align:bottom;}
+.hero-word-inner{display:inline-block;transform:translateY(110%);opacity:0;}
+
+/* Stat num highlight durante CountUp */
+.stat-num.counting{color:var(--green);text-shadow:0 0 20px rgba(141,198,63,.45);}
+/* ────────────────────────────────────────────────────── */
+
 /* RESPONSIVE */
 @media(max-width:900px){
   nav{padding:1rem 1.5rem;}
@@ -298,11 +346,12 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
 
 <!-- HERO -->
 <section id="hero">
+  <canvas id="hero-particles"></canvas>
   <div class="hero-glow"></div>
   <div class="hero-content">
     <img class="hero-logo" src="assets/logo.png" alt="Cyber Records">
     <div class="hero-badge">Ecossistema de Tecnologia · Brasil</div>
-    <h1 class="hero-title">
+    <h1 class="hero-title" id="hero-title">
       Tecnologia Empresarial<br>
       <span>Completa.</span>
     </h1>
@@ -317,11 +366,11 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
       Tudo integrado em uma única empresa.
     </p>
     <div class="hero-ctas">
-      <a href="#solucoes" class="btn-primary">Conhecer Soluções</a>
+      <div class="mag-wrap"><a href="#solucoes" class="btn-primary" id="mag-btn">Conhecer Soluções</a></div>
       <a href="#contato" class="btn-secondary">Solicitar Demonstração</a>
     </div>
   </div>
-  <div class="scroll-line"></div>
+  <div class="scroll-dot"></div>
 </section>
 
 <!-- SOLUÇÕES — 5 PILARES -->
@@ -376,19 +425,19 @@ footer{background:var(--black);border-top:1px solid var(--border-dim);padding:2.
       </div>
       <div class="about-stats">
         <div class="stat">
-          <div class="stat-num">22</div>
+          <div class="stat-num" data-count="22" data-suffix="">0</div>
           <div class="stat-label">Módulos ativos</div>
         </div>
         <div class="stat">
-          <div class="stat-num">8</div>
+          <div class="stat-num" data-count="8" data-suffix="">0</div>
           <div class="stat-label">Frameworks auditados</div>
         </div>
         <div class="stat">
-          <div class="stat-num">24h</div>
+          <div class="stat-num" data-count="24" data-suffix="h">0h</div>
           <div class="stat-label">Tempo de resposta</div>
         </div>
         <div class="stat">
-          <div class="stat-num">100%</div>
+          <div class="stat-num" data-count="100" data-suffix="%">0%</div>
           <div class="stat-label">Gerenciado</div>
         </div>
       </div>
@@ -1206,6 +1255,183 @@ document.querySelectorAll('.acc-header').forEach(h => {
     if(!isOpen) item.classList.add('open');
   });
 });
+</script>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   CYBER RECORDS — Animações Modernas
+   Partículas · GSAP · Magnético · CountUp · 3D cards
+   ═══════════════════════════════════════════════════════ */
+
+/* ── 1. PARTÍCULAS NO HERO ─────────────────────────── */
+(function() {
+  const canvas = document.getElementById('hero-particles');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, pts = [];
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+
+  function mkPt() {
+    return {
+      x: Math.random() * W,
+      y: Math.random() * H + H * 0.1,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: -(Math.random() * 0.55 + 0.15),
+      r: Math.random() * 1.6 + 0.5,
+      a: Math.random()
+    };
+  }
+
+  function init() { resize(); pts = Array.from({length: 90}, mkPt); }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    pts.forEach(p => {
+      p.x += p.vx; p.y += p.vy; p.a = Math.max(0, p.a - 0.001);
+      if (p.y < -10 || p.a <= 0) { Object.assign(p, mkPt()); p.y = H + 5; p.a = Math.random() * 0.7 + 0.3; }
+      if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(141,198,63,' + (p.a * 0.7) + ')';
+      ctx.fill();
+    });
+    /* linhas de conexão */
+    for (let i = 0; i < pts.length; i++) {
+      for (let j = i + 1; j < pts.length; j++) {
+        const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
+        if (d < 100) {
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x, pts[i].y);
+          ctx.lineTo(pts[j].x, pts[j].y);
+          ctx.strokeStyle = 'rgba(141,198,63,' + ((1 - d / 100) * 0.12) + ')';
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  init(); draw();
+})();
+
+/* ── 2. GSAP: reveal de palavras no título do hero ─── */
+window.addEventListener('load', function() {
+  if (typeof gsap === 'undefined') return;
+  gsap.registerPlugin(typeof ScrollTrigger !== 'undefined' ? ScrollTrigger : {});
+
+  /* Lenis smooth scroll */
+  if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+    function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    if (typeof ScrollTrigger !== 'undefined') {
+      lenis.on('scroll', ScrollTrigger.update);
+    }
+  }
+
+  /* Animação do título com GSAP (sem manipular innerHTML) */
+  const title = document.getElementById('hero-title');
+  if (title) {
+    title.style.animation = 'none';
+    title.style.opacity = '0';
+    title.style.transform = 'translateY(30px)';
+    gsap.to(title, {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      ease: 'power3.out',
+      delay: 0.35
+    });
+  }
+
+  /* Scroll-triggered reveals com GSAP */
+  if (typeof ScrollTrigger !== 'undefined') {
+    gsap.utils.toArray('.reveal').forEach(el => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 32 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+          scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+        }
+      );
+      el.classList.add('visible'); /* evita flash do CSS fallback */
+    });
+  }
+});
+
+/* ── 3. BOTÃO MAGNÉTICO ────────────────────────────── */
+(function() {
+  const wrap = document.querySelector('.mag-wrap');
+  const btn  = document.getElementById('mag-btn');
+  if (!wrap || !btn) return;
+
+  wrap.addEventListener('mousemove', function(e) {
+    const r = btn.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top  + r.height / 2;
+    const dx = (e.clientX - cx) * 0.22;
+    const dy = (e.clientY - cy) * 0.22;
+    btn.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+  });
+
+  wrap.addEventListener('mouseleave', function() {
+    btn.style.transform = 'translate(0,0)';
+  });
+})();
+
+/* ── 4. COUNTUP NOS STATS ──────────────────────────── */
+(function() {
+  const els = document.querySelectorAll('.stat-num[data-count]');
+  if (!els.length) return;
+
+  const obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      const el      = entry.target;
+      const target  = parseInt(el.dataset.count, 10);
+      const suffix  = el.dataset.suffix || '';
+      const dur     = 1400;
+      const step    = 16;
+      const steps   = dur / step;
+      let cur = 0;
+      el.classList.add('counting');
+      const iv = setInterval(function() {
+        cur = Math.min(cur + Math.ceil(target / steps), target);
+        el.textContent = cur + suffix;
+        if (cur >= target) {
+          clearInterval(iv);
+          el.classList.remove('counting');
+        }
+      }, step);
+      obs.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+
+  els.forEach(function(el) { obs.observe(el); });
+})();
+
+/* ── 5. CARDS 3D — pillar cards e pilar rows ──────── */
+(function() {
+  function tilt(el, maxDeg) {
+    el.addEventListener('mousemove', function(e) {
+      const r  = el.getBoundingClientRect();
+      const x  = (e.clientX - r.left) / r.width  - 0.5;
+      const y  = (e.clientY - r.top)  / r.height - 0.5;
+      el.style.transform = 'perspective(800px) rotateX(' + (-y * maxDeg) + 'deg) rotateY(' + (x * maxDeg) + 'deg) translateZ(4px)';
+    });
+    el.addEventListener('mouseleave', function() {
+      el.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0)';
+    });
+  }
+
+  document.querySelectorAll('.pillar-card').forEach(function(c) { tilt(c, 6); });
+  document.querySelectorAll('.pilar').forEach(function(c) { tilt(c, 3); });
+})();
 </script>
 
 </body>
