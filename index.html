@@ -95,8 +95,42 @@ section{position:relative;z-index:1;padding:6rem 2rem;}
 .green-line{width:48px;height:2px;background:var(--green);margin-bottom:2rem;box-shadow:0 0 8px rgba(141,198,63,0.6);}
 
 /* fundos semi-transparentes para grid+partículas aparecerem */
-#sobre,#solucoes,#suporte-ti,#para-quem,#contratacao{background:rgba(10,12,8,0.78)!important;}
-#como-funciona,#erp-ia,#plataforma,#contato{background:rgba(8,10,6,0.65)!important;}
+#sobre,#solucoes,#suporte-ti,#para-quem,#contratacao{background:rgba(4,8,5,0.82)!important;}
+#como-funciona,#erp-ia,#plataforma,#contato{background:rgba(4,8,5,0.72)!important;}
+
+/* ── LEGIBILIDADE: texto branco com sombra escura ─── */
+/* Títulos de seção */
+.section-title{color:#FFFFFF!important;text-shadow:0 2px 12px rgba(0,0,0,0.95);}
+.section-title span{color:var(--green)!important;}
+/* Labels e subtítulos */
+.section-label{text-shadow:0 0 8px rgba(0,0,0,0.8);}
+/* Parágrafos e texto secundário */
+.about-text p,.pilar-desc,.hero-sub,.contact-sub,.contratacao-sub,
+.check-text,.erp-gallery-caption,.service-card p,.pillar-card p,
+.featured-text p,.sla-note,.deploy-list li{
+  color:#D4D8CC!important;
+  text-shadow:0 1px 6px rgba(0,0,0,0.9);
+}
+/* Listas de pilares */
+.pilar-list li{color:#C8CEC0!important;text-shadow:0 1px 5px rgba(0,0,0,0.9);}
+/* Títulos de cards e pilares */
+.pilar-title,.pilar-num,.service-card h3,.pillar-card h3,
+.featured-text h3,.especialista-nome,.stat-label{
+  text-shadow:0 1px 8px rgba(0,0,0,0.95);
+}
+/* Texto menor (framework, labels) */
+.framework-table td,.ticket-desc,.contact-email,.contact-whatsapp span,
+.contratacao-note,.contact-note{color:#C0C8B8!important;text-shadow:0 1px 5px rgba(0,0,0,0.9);}
+/* Stat numbers — mantém verde mas com sombra */
+.stat-num{text-shadow:0 0 20px rgba(141,198,63,0.5),0 2px 8px rgba(0,0,0,0.9)!important;}
+/* Fundos dos cards mais opacos para dar base escura ao texto */
+.pilar,.service-card,.pillar-card,.check-item,.stat,
+.especialista-card,.featured-block,.combo-card,.tickets-panel,
+.browser-frame,.erp-gallery,.gallery-item{
+  background:rgba(6,10,5,0.88)!important;
+  backdrop-filter:blur(4px);
+}
+/* ─────────────────────────────────────────────────── */
 
 /* SOBRE */
 #sobre{border-top:1px solid var(--border-dim);border-bottom:1px solid var(--border-dim);}
