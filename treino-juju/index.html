@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>JUJU · Ficha de Treino</title>
+<meta name="description" content="Ficha de treino personalizada — 3 meses, foco em perda de peso saudável e proteção dos joelhos.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#121212;
+    --card:#1E1E1E;
+    --card-border:#333333;
+    --accent:#FFC107;
+    --accent-dark:#c98f00;
+    --text:#FFFFFF;
+    --text-secondary:#CCCCCC;
+    --ok:#8BC34A;
+    --rest-bg:#252525;
+    --warn-bg:rgba(255, 82, 82, .12);
+    --warn-border:rgba(255, 99, 99, .45);
+    --warn-text:#FF8A80;
+    --radius:8px;
+  }
+
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Poppins','Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    line-height:1.5;
+    padding-bottom:64px;
+  }
+
+  .wrap{max-width:720px;margin:0 auto;padding:20px 16px 8px;}
+
+  /* ---------- HEADER ---------- */
+  .header{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:18px 4px 22px;
+  }
+  .avatar{
+    flex:none;
+    width:80px;height:80px;
+    border-radius:50%;
+    border:3px solid var(--accent);
+    box-shadow:0 0 0 3px rgba(255,193,7,.15);
+    overflow:hidden;
+    background:#f9d9dd;
+  }
+  .avatar svg{display:block;width:100%;height:100%;}
+  .header-text .name{
+    margin:0;
+    font-size:1.35rem;
+    font-weight:800;
+    letter-spacing:.3px;
+  }
+  .header-text .subtitle{
+    margin:6px 0 0;
+    font-size:.83rem;
+    color:var(--text-secondary);
+    line-height:1.45;
+  }
+
+  /* ---------- WARNING ---------- */
+  .warning{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    background:var(--warn-bg);
+    border:1px solid var(--warn-border);
+    border-radius:var(--radius);
+    padding:12px 14px;
+    margin:0 0 22px;
+  }
+  .warning svg{flex:none;margin-top:2px;width:18px;height:18px;color:var(--warn-text);}
+  .warning p{margin:0;color:var(--warn-text);font-size:.85rem;font-weight:500;}
+  .warning strong{font-weight:700;}
+
+  /* ---------- MONTH SECTIONS ---------- */
+  details.month{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius);
+    margin-bottom:14px;
+    overflow:hidden;
+  }
+  details.month > summary{
+    list-style:none;
+    cursor:pointer;
+    padding:16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    user-select:none;
+  }
+  details.month > summary::-webkit-details-marker{display:none;}
+  .month-badge{
+    flex:none;
+    background:rgba(255,193,7,.12);
+    color:var(--accent);
+    font-weight:700;
+    font-size:.7rem;
+    letter-spacing:.5px;
+    padding:6px 9px;
+    border-radius:6px;
+    border:1px solid rgba(255,193,7,.35);
+  }
+  .month-title{flex:1;min-width:0;}
+  .month-title .m-name{
+    font-weight:700;
+    font-size:.98rem;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .month-title .m-goal{
+    font-size:.78rem;
+    color:var(--text-secondary);
+    margin-top:3px;
+  }
+  .m-count{
+    flex:none;
+    font-size:.7rem;
+    color:var(--text-secondary);
+    text-align:right;
+    white-space:nowrap;
+  }
+  .chevron{
+    flex:none;
+    width:20px;height:20px;
+    color:var(--text-secondary);
+    transition:transform .25s ease;
+  }
+  details.month[open] > summary .chevron{transform:rotate(180deg);}
+  details.month[open] > summary{border-bottom:1px solid var(--card-border);}
+
+  .exercises{
+    padding:14px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+  @media (max-width:520px){
+    .exercises{grid-template-columns:1fr;}
+  }
+
+  /* ---------- EXERCISE CARD ---------- */
+  .ex-card{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .ex-main{
+    display:flex;
+    gap:10px;
+    padding:12px;
+    align-items:flex-start;
+  }
+  .ex-num{
+    flex:none;
+    color:var(--accent);
+    font-weight:700;
+    font-size:.95rem;
+    line-height:1.6;
+    min-width:20px;
+  }
+  .ex-thumb{
+    flex:none;
+    width:60px;height:60px;
+    border-radius:12px;
+    background:var(--rest-bg);
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .ex-thumb svg{width:38px;height:38px;}
+  .ex-info{flex:1;min-width:0;}
+  .ex-name{
+    margin:0;
+    font-weight:700;
+    color:var(--text);
+    font-size:.9rem;
+    line-height:1.35;
+  }
+  .ex-series{
+    margin:3px 0 0;
+    font-size:.8rem;
+    color:var(--text-secondary);
+  }
+  .ex-obs{
+    margin:4px 0 0;
+    font-size:.76rem;
+    color:var(--ok);
+    font-weight:500;
+    display:flex;
+    gap:5px;
+    align-items:flex-start;
+  }
+  .ex-obs svg{flex:none;width:12px;height:12px;margin-top:2px;}
+
+  .ex-rest{
+    background:var(--rest-bg);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:9px 12px;
+    border-top:1px solid var(--card-border);
+  }
+  .ex-rest .rest-label{
+    font-size:.72rem;
+    color:var(--text-secondary);
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .ex-rest .rest-label svg{width:12px;height:12px;color:var(--text-secondary);}
+  .play-btn{
+    flex:none;
+    width:22px;height:22px;
+    border-radius:50%;
+    background:var(--accent);
+    display:flex;align-items:center;justify-content:center;
+    border:none;
+    cursor:pointer;
+    padding:0;
+  }
+  .play-btn svg{width:10px;height:10px;color:#121212;margin-left:1px;}
+
+  /* ---------- FINALIZAR ---------- */
+  .finish-wrap{margin:26px 0 22px;text-align:center;}
+  .finish-btn{
+    width:100%;
+    background:var(--accent);
+    color:#1a1200;
+    border:none;
+    border-radius:var(--radius);
+    padding:16px;
+    font-size:1rem;
+    font-weight:800;
+    letter-spacing:.3px;
+    cursor:pointer;
+    font-family:inherit;
+    transition:transform .15s ease, background .2s ease;
+  }
+  .finish-btn:active{transform:scale(.98);}
+  .finish-btn.done{background:var(--ok);color:#0e1a02;}
+  .finish-note{
+    margin-top:10px;
+    font-size:.78rem;
+    color:var(--text-secondary);
+    min-height:1.2em;
+  }
+
+  /* ---------- ORIENTACOES ---------- */
+  .tips{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius);
+    padding:16px;
+    margin-bottom:18px;
+  }
+  .tips h2{
+    margin:0 0 12px;
+    font-size:1rem;
+    font-weight:700;
+    display:flex;align-items:center;gap:8px;
+  }
+  .tips h2 svg{width:18px;height:18px;color:var(--accent);}
+  .tips ul{margin:0;padding:0;list-style:none;}
+  .tips li{
+    display:flex;
+    gap:10px;
+    padding:9px 0;
+    border-top:1px solid var(--card-border);
+    font-size:.83rem;
+    color:var(--text-secondary);
+  }
+  .tips li:first-child{border-top:none;}
+  .tips li svg{flex:none;width:16px;height:16px;margin-top:1px;color:var(--accent);}
+  .tips li b{color:var(--text);font-weight:600;}
+
+  footer{
+    text-align:center;
+    font-size:.72rem;
+    color:#666;
+    padding:10px 16px 0;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="avatar">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <rect width="80" height="80" fill="#F8D9DE"/>
+        <circle cx="16" cy="14" r="1.4" fill="#f7b8c4"/>
+        <circle cx="66" cy="20" r="1" fill="#f7b8c4"/>
+        <circle cx="70" cy="55" r="1.4" fill="#f7b8c4"/>
+        <circle cx="10" cy="55" r="1" fill="#f7b8c4"/>
+        <path d="M14 40c1.5-2 3.5-2 5 0" stroke="#f2a9b8" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <path d="M62 44c1.5-2 3.5-2 5 0" stroke="#f2a9b8" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <path d="M40 74c11 0 17-4 17-4v10H23V70s6 4 17 4z" fill="#F5B8C6"/>
+        <path d="M23 70s6 4 17 4 17-4 17-4l-2 2c-3 2-8.5 4-15 4s-12-2-15-4z" fill="#e79aac"/>
+        <circle cx="40" cy="46" r="21" fill="#4A3222"/>
+        <circle cx="40" cy="48" r="17.5" fill="#FFE0C7"/>
+        <path d="M19 40c-3 6-2 13 2 17-2-5-1-11 1-14z" fill="#4A3222"/>
+        <path d="M61 40c3 6 2 13-2 17 2-5 1-11-1-14z" fill="#4A3222"/>
+        <g fill="#4A3222">
+          <circle cx="16" cy="36" r="5.2"/>
+          <circle cx="12" cy="42" r="4.6"/>
+          <circle cx="13" cy="49" r="4.2"/>
+          <circle cx="17" cy="54" r="3.8"/>
+          <circle cx="64" cy="36" r="5.2"/>
+          <circle cx="68" cy="42" r="4.6"/>
+          <circle cx="67" cy="49" r="4.2"/>
+          <circle cx="63" cy="54" r="3.8"/>
+          <circle cx="23" cy="30" r="5"/>
+          <circle cx="57" cy="30" r="5"/>
+          <circle cx="30" cy="26" r="5"/>
+          <circle cx="50" cy="26" r="5"/>
+          <circle cx="40" cy="24" r="5.5"/>
+        </g>
+        <path d="M32 27c3-2 13-2 16 0-2 3-14 3-16 0z" fill="#4A3222"/>
+        <ellipse cx="39.5" cy="21" rx="6" ry="4.5" fill="#F5B8C6"/>
+        <path d="M35 20l4 2 5-2-2 3.5-3 1-3-1z" fill="#F092AC"/>
+        <path d="M31 45c1.5-1.5 4-1.5 5.5 0" stroke="#4A3222" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+        <path d="M43.5 45c1.5-1.5 4-1.5 5.5 0" stroke="#4A3222" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+        <circle cx="32" cy="50" r="4" fill="#FBC6C9" opacity=".8"/>
+        <circle cx="48" cy="50" r="4" fill="#FBC6C9" opacity=".8"/>
+        <path d="M35 53c2 2.5 8 2.5 10 0" stroke="#7a4a2a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <circle cx="33" cy="47" r="1.6" fill="#2b1d12"/>
+        <circle cx="47" cy="47" r="1.6" fill="#2b1d12"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <p class="name">JUJU</p>
+      <p class="subtitle">16 anos · Perda de peso saudável + Proteção dos joelhos<br>3 meses · 3x/semana</p>
+    </div>
+  </div>
+
+  <!-- WARNING -->
+  <div class="warning">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 9v4m0 4h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <p><strong>Atenção:</strong> Este treino é leve e educativo, precisa de liberação médica por dor nos joelhos. Parar se sentir dor aguda.</p>
+  </div>
+
+  <!-- ICON DEFS -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="ic-glute" viewBox="0 0 60 60">
+        <path d="M12 40c0-10 8-16 18-16s18 6 18 16" stroke="#FFC107" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="30" cy="16" r="5" fill="#FFC107"/>
+        <path d="M15 40h30" stroke="#555" stroke-width="3" stroke-linecap="round"/>
+        <path d="M12 40v6M48 40v6" stroke="#FFC107" stroke-width="3" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="ic-abductor" viewBox="0 0 60 60">
+        <rect x="10" y="14" width="10" height="30" rx="2" fill="none" stroke="#FFC107" stroke-width="2.5"/>
+        <rect x="40" y="14" width="10" height="30" rx="2" fill="none" stroke="#FFC107" stroke-width="2.5"/>
+        <path d="M22 22c6 6 10 6 16 0M22 36c6-6 10-6 16 0" stroke="#FFC107" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M18 44l-4 8M42 44l4 8" stroke="#888" stroke-width="2.5" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="ic-extensor" viewBox="0 0 60 60">
+        <circle cx="18" cy="20" r="6" fill="#FFC107"/>
+        <path d="M18 26v14" stroke="#FFC107" stroke-width="3" stroke-linecap="round"/>
+        <path d="M18 40l18-4" stroke="#FFC107" stroke-width="3" stroke-linecap="round"/>
+        <path d="M36 36l4 12" stroke="#888" stroke-width="3" stroke-linecap="round"/>
+        <path d="M10 44h34" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="ic-pulldown" viewBox="0 0 60 60">
+        <path d="M30 10v8" stroke="#888" stroke-width="2.5"/>
+        <path d="M18 18h24l-6 8H24z" stroke="#FFC107" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+        <path d="M22 26l-6 20M38 26l6 20" stroke="#FFC107" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="30" cy="46" r="4" fill="#888"/>
+      </symbol>
+      <symbol id="ic-row" viewBox="0 0 60 60">
+        <path d="M8 34h44" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M20 34V22" stroke="#888" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M14 22h12" stroke="#FFC107" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="40" cy="34" r="5" fill="none" stroke="#FFC107" stroke-width="2.5"/>
+      </symbol>
+      <symbol id="ic-press" viewBox="0 0 60 60">
+        <path d="M14 44V30c0-9 7-16 16-16s16 7 16 16v14" stroke="#FFC107" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M8 44h10M42 44h10" stroke="#888" stroke-width="3" stroke-linecap="round"/>
+        <path d="M8 44v-6M18 44v-6M42 44v-6M52 44v-6" stroke="#888" stroke-width="2.5" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="ic-plank" viewBox="0 0 60 60">
+        <path d="M8 40l12-14 22 4 10-6" stroke="#FFC107" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="10" cy="42" r="3.5" fill="#FFC107"/>
+        <circle cx="50" cy="22" r="4.5" fill="#FFC107"/>
+      </symbol>
+      <symbol id="ic-bike" viewBox="0 0 60 60">
+        <circle cx="16" cy="42" r="9" fill="none" stroke="#FFC107" stroke-width="2.5"/>
+        <circle cx="44" cy="42" r="9" fill="none" stroke="#FFC107" stroke-width="2.5"/>
+        <path d="M16 42l10-20h10l8 20M26 22l6 10h12" stroke="#888" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="26" cy="22" r="2.5" fill="#FFC107"/>
+      </symbol>
+      <symbol id="ic-squat" viewBox="0 0 60 60">
+        <circle cx="30" cy="14" r="5" fill="#FFC107"/>
+        <path d="M20 44V30c0-6 4-10 10-10s10 4 10 10v14" stroke="#FFC107" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M20 44l-4 8M40 44l4 8" stroke="#888" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M12 34h36" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="ic-deadlift" viewBox="0 0 60 60">
+        <circle cx="30" cy="12" r="5" fill="#FFC107"/>
+        <path d="M22 17l-4 18 6 15M38 17l4 18-6 15" stroke="#FFC107" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M10 46h40" stroke="#555" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="10" cy="46" r="4" fill="none" stroke="#888" stroke-width="2.5"/>
+        <circle cx="50" cy="46" r="4" fill="none" stroke="#888" stroke-width="2.5"/>
+      </symbol>
+      <symbol id="ic-calf" viewBox="0 0 60 60">
+        <path d="M22 12v20l-10 16h10l6-12 6 12h10l-10-16V12" stroke="#FFC107" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M10 48h40" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="ic-legpress" viewBox="0 0 60 60">
+        <rect x="10" y="12" width="14" height="34" rx="2" fill="none" stroke="#888" stroke-width="2.5"/>
+        <path d="M24 20l22-4v10l-22 4" stroke="#FFC107" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+        <path d="M46 16v10" stroke="#FFC107" stroke-width="3" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="ic-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></symbol>
+      <symbol id="ic-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M12 7v5l4 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+      <symbol id="ic-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- MES 1 -->
+  <details class="month" open>
+    <summary>
+      <span class="month-badge">S1–S4</span>
+      <span class="month-title">
+        <span class="m-name">MÊS 1 · ADAPTAÇÃO</span>
+        <span class="m-goal">Aprender o movimento sem dor</span>
+      </span>
+      <span class="m-count">8 exercícios</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="exercises">
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">01</span>
+          <div class="ex-thumb"><svg><use href="#ic-glute"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Ponte de Glúteo</p>
+            <p class="ex-series">3 séries x 12–15 reps</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Sem dor no joelho · aperta o glúteo no topo</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">02</span>
+          <div class="ex-thumb"><svg><use href="#ic-abductor"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Cadeira Abdutora</p>
+            <p class="ex-series">3 séries x 15–20 reps</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Controle o movimento · sem dor lateral</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">03</span>
+          <div class="ex-thumb"><svg><use href="#ic-extensor"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Cadeira Extensora Curta</p>
+            <p class="ex-series">3 séries x 12 reps · só 90° até esticar</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Amplitude curta · nunca force o joelho</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">04</span>
+          <div class="ex-thumb"><svg><use href="#ic-pulldown"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Puxada Triângulo</p>
+            <p class="ex-series">3 séries x 12–15 reps</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Ombros relaxados · puxa com as costas</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">05</span>
+          <div class="ex-thumb"><svg><use href="#ic-row"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Remada Neutra</p>
+            <p class="ex-series">3 séries x 12–15 reps</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Aperta a escápula no final</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">06</span>
+          <div class="ex-thumb"><svg><use href="#ic-press"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Desenvolvimento Aberto</p>
+            <p class="ex-series">2 séries x 12–15 reps</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Carga leve · movimento controlado</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">07</span>
+          <div class="ex-thumb"><svg><use href="#ic-plank"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Prancha</p>
+            <p class="ex-series">3 séries x 20–30s</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Barriga contraída · sem arquear as costas</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">08</span>
+          <div class="ex-thumb"><svg><use href="#ic-bike"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Bike</p>
+            <p class="ex-series">15 minutos</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Ritmo leve e constante</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- MES 2 -->
+  <details class="month">
+    <summary>
+      <span class="month-badge">S5–S8</span>
+      <span class="month-title">
+        <span class="m-name">MÊS 2 · FORTALECIMENTO</span>
+        <span class="m-goal">Glúteo médio e posterior</span>
+      </span>
+      <span class="m-count">8 exercícios</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="exercises">
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">01</span>
+          <div class="ex-thumb"><svg><use href="#ic-glute"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Ponte com Pausa</p>
+            <p class="ex-series">3 séries x 15 reps</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Segura 2s no topo · ativa mais o glúteo</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">02</span>
+          <div class="ex-thumb"><svg><use href="#ic-abductor"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Cadeira Abdutora</p>
+            <p class="ex-series">4 séries x 15 reps</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Aumenta a carga aos poucos</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">03</span>
+          <div class="ex-thumb"><svg><use href="#ic-squat"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Agachamento na Caixa</p>
+            <p class="ex-series">3 séries x 10–12 reps · sem peso</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Não passa de 90° de flexão</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">04</span>
+          <div class="ex-thumb"><svg><use href="#ic-deadlift"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Stiff com Halteres Leve</p>
+            <p class="ex-series">3 séries x 12 reps</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Costas retas · sente o posterior</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">05</span>
+          <div class="ex-thumb"><svg><use href="#ic-pulldown"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Puxada Romana</p>
+            <p class="ex-series">3 séries x 12–15 reps</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Controle na descida</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">06</span>
+          <div class="ex-thumb"><svg><use href="#ic-row"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Biset: Remada + Desenvolvimento</p>
+            <p class="ex-series">3 séries x 12 reps (cada)</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Sem pausa entre os dois · carga leve</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">07</span>
+          <div class="ex-thumb"><svg><use href="#ic-calf"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Panturrilha (Gêmeos)</p>
+            <p class="ex-series">3 séries x 15–20 reps</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Sobe até a ponta do pé</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">08</span>
+          <div class="ex-thumb"><svg><use href="#ic-bike"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Remador + Bike</p>
+            <p class="ex-series">10 minutos intercalado</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Cardio leve · respiração tranquila</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- MES 3 -->
+  <details class="month">
+    <summary>
+      <span class="month-badge">S9–S12</span>
+      <span class="month-title">
+        <span class="m-name">MÊS 3 · RESISTÊNCIA</span>
+        <span class="m-goal">Circuito para gasto calórico</span>
+      </span>
+      <span class="m-count">8 exercícios</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    <div class="exercises">
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">01</span>
+          <div class="ex-thumb"><svg><use href="#ic-glute"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Hip Thrust</p>
+            <p class="ex-series">4 séries x 12–15 reps</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Aperta o glúteo no topo · sem dor lombar</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">02</span>
+          <div class="ex-thumb"><svg><use href="#ic-abductor"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Abdutora + Glúteo 4 Apoios</p>
+            <p class="ex-series">3 séries x 20 + 12 reps</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Combo de glúteo médio</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">03</span>
+          <div class="ex-thumb"><svg><use href="#ic-legpress"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Leg Press 45° (leve e curto)</p>
+            <p class="ex-series">3 séries x 12–15 reps · só até 90°</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Carga leve · amplitude curta</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">04</span>
+          <div class="ex-thumb"><svg><use href="#ic-extensor"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Extensora Curta + Flexora</p>
+            <p class="ex-series">3 séries x 12 reps</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Equilíbrio quadríceps e posterior</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">05</span>
+          <div class="ex-thumb"><svg><use href="#ic-pulldown"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Puxada + Remada (circuito)</p>
+            <p class="ex-series">3 séries x 15 reps</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Sem descanso entre os dois</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">06</span>
+          <div class="ex-thumb"><svg><use href="#ic-press"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Desenvolvimento + Lateral</p>
+            <p class="ex-series">3 séries x 12–15 reps</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Ombros ativos · carga leve</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">07</span>
+          <div class="ex-thumb"><svg><use href="#ic-plank"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Prancha + Remador</p>
+            <p class="ex-series">3 séries x 30s + 15 reps</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Core forte · cardio leve</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+      <div class="ex-card">
+        <div class="ex-main">
+          <span class="ex-num">08</span>
+          <div class="ex-thumb"><svg><use href="#ic-bike"/></svg></div>
+          <div class="ex-info">
+            <p class="ex-name">Elíptico Intercalado</p>
+            <p class="ex-series">20 minutos</p>
+            <p class="ex-obs"><svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Alterna ritmo forte e leve</p>
+          </div>
+        </div>
+        <div class="ex-rest">
+          <span class="rest-label"><svg><use href="#ic-clock"/></svg>00:45 (Descanso entre séries)</span>
+          <button class="play-btn" type="button" aria-label="play"><svg><use href="#ic-play"/></svg></button>
+        </div>
+      </div>
+
+    </div>
+  </details>
+
+  <!-- FINALIZAR -->
+  <div class="finish-wrap">
+    <button class="finish-btn" id="finishBtn" type="button">Finalizar Treino</button>
+    <p class="finish-note" id="finishNote"></p>
+  </div>
+
+  <!-- ORIENTACOES -->
+  <div class="tips">
+    <h2>
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 2 7l10 5 10-5-10-5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      Orientações
+    </h2>
+    <ul>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4m0 4h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span><b>Sentiu dor?</b> Pare na hora e avise o professor ou responsável.</span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l4 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span><b>Descanso:</b> 45 segundos entre as séries, sempre.</span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none"><path d="m3 17 6-6 4 4 8-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span><b>Progressão:</b> aumente a carga aos poucos, sem pressa.</span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2s7 8 7 13a7 7 0 1 1-14 0c0-5 7-13 7-13Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <span><b>Água:</b> beba antes, durante e depois do treino.</span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <span><b>Sono:</b> durma bem para o corpo se recuperar.</span>
+      </li>
+    </ul>
+  </div>
+
+  <footer>Validade: 3 meses — reavaliar com o professor.</footer>
+</div>
+
+<script>
+  document.getElementById('finishBtn').addEventListener('click', function () {
+    var btn = this;
+    var note = document.getElementById('finishNote');
+    var done = btn.classList.toggle('done');
+    if (done) {
+      btn.textContent = 'Treino Concluído ✓';
+      note.textContent = 'Mandou bem, JUJU! 💪';
+    } else {
+      btn.textContent = 'Finalizar Treino';
+      note.textContent = '';
+    }
+  });
+</script>
+</body>
+</html>
