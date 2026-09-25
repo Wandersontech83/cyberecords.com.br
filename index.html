@@ -61,6 +61,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .hero-glow{position:absolute;top:30%;right:5%;width:500px;height:500px;background:radial-gradient(circle,rgba(141,198,63,0.07) 0%,transparent 70%);pointer-events:none;}
 .hero-content{position:relative;z-index:1;max-width:820px;}
 
+/* Vídeo de fundo do hero */
+.hero-video,.hero-poster-mobile{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:0.55;}
+.hero-poster-mobile{display:none;}
+.hero-video-overlay{position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(4,8,5,0.55) 0%,rgba(4,8,5,0.82) 65%,var(--black) 100%);}
+@media(max-width:768px){
+  .hero-video{display:none;}
+  .hero-poster-mobile{display:block;}
+}
+
 /* Logo — card escuro estilo demo */
 .hero-logo-wrap{display:flex;align-items:center;gap:14px;margin-bottom:2rem;animation:fadeUp 0.8s ease both;}
 .hero-logo{width:56px;height:56px;background:#0e1409;border:1px solid rgba(141,198,63,0.45);border-radius:8px;padding:8px;box-shadow:0 0 20px rgba(141,198,63,0.25);animation:none!important;}
@@ -447,6 +456,13 @@ footer{background:var(--black);border-top:1px solid rgba(141,198,63,0.12);paddin
 <!-- HERO -->
 <section id="hero">
   <div class="hero-glow"></div>
+  <video class="hero-video" autoplay muted loop playsinline preload="none" poster="assets/hero-cyber.webp" aria-hidden="true">
+    <source src="assets/hero-cyber.webm" type="video/webm">
+    <source src="assets/hero-cyber.mp4" type="video/mp4">
+  </video>
+  <img class="hero-poster-mobile" src="assets/hero-cyber.webp" alt="" aria-hidden="true">
+  <div class="hero-video-overlay" aria-hidden="true"></div>
+  <script>if(window.innerWidth>0&&window.innerWidth<768){var hv=document.querySelector('.hero-video');if(hv)hv.remove();}</script>
   <div class="hero-fx" aria-hidden="true">
     <div class="light-trail t1"></div>
     <div class="light-trail t2"></div>
